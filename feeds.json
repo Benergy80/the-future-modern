@@ -1,0 +1,51 @@
+{
+  "title": "The Future Modern",
+  "description": "A curated feed of art, design, and culture",
+  "feeds": [
+    {
+      "name": "Newcity Art",
+      "url": "https://art.newcity.com/feed/",
+      "category": "Art"
+    },
+    {
+      "name": "Newcity Design",
+      "url": "https://design.newcity.com/feed/",
+      "category": "Design"
+    },
+    {
+      "name": "Block Club Chicago — Arts & Culture",
+      "url": "https://blockclubchicago.org/feed/",
+      "category": "Culture"
+    },
+    {
+      "name": "Core77",
+      "url": "https://www.core77.com/feed",
+      "category": "Design"
+    },
+    {
+      "name": "Dezeen",
+      "url": "https://www.dezeen.com/feed/",
+      "category": "Design"
+    },
+    {
+      "name": "designboom — Design",
+      "url": "https://www.designboom.com/feed/",
+      "category": "Design"
+    },
+    {
+      "name": "Blackpuffin",
+      "url": "https://blackpuffin.co/blog?format=rss",
+      "category": "Art"
+    },
+    {
+      "name": "Artist Replete",
+      "url": "https://artistreplete.com/blogs/blog.atom",
+      "category": "Art"
+    },
+{
+      "name": "Artisanal Metals",
+      "url": "https://artisanalmetals.com/feed/",
+      "category": "Art"
+    }
+  ]
+}

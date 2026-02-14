@@ -1,0 +1,2207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Future Modern</title>
+    <meta name="description" content="A curated feed of art, design, and culture">
+    <style>
+        :root {
+            --bg: #fafaf8;
+            --text: #1a1a1a;
+            --text-secondary: #666;
+            --border: #e5e5e0;
+            --surface: #fff;
+            --hover: #f5f5f0;
+            --accent: #2d2d2d;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #111;
+                --text: #e8e8e3;
+                --text-secondary: #999;
+                --border: #2a2a2a;
+                --surface: #1a1a1a;
+                --hover: #222;
+                --accent: #e8e8e3;
+            }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            padding: 48px 0 32px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 8px;
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--accent);
+        }
+
+        header p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .filters {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-right: 8px;
+            font-weight: 600;
+        }
+
+        .filter-btn {
+            background: none;
+            border: 1px solid var(--border);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.15s;
+            font-family: inherit;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--text);
+            color: var(--text);
+        }
+
+        .filter-btn.active {
+            background: var(--accent);
+            color: var(--bg);
+            border-color: var(--accent);
+        }
+
+        .feed {
+            list-style: none;
+        }
+
+        .item {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 20px;
+            transition: opacity 0.2s;
+        }
+
+        .item.hidden {
+            display: none;
+        }
+
+        .item-image {
+            flex-shrink: 0;
+            width: 140px;
+            height: 100px;
+            border-radius: 6px;
+            overflow: hidden;
+            background: var(--hover);
+        }
+
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .item-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .item-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 6px;
+            font-size: 12px;
+        }
+
+        .item-source {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 11px;
+        }
+
+        .item-date {
+            color: var(--text-secondary);
+        }
+
+        .item-title {
+            font-size: 17px;
+            font-weight: 600;
+            line-height: 1.35;
+            letter-spacing: -0.2px;
+        }
+
+        .item-title a {
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .item-title a:hover {
+            text-decoration: underline;
+        }
+
+        .item-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 6px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .item-author {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            display: block;
+        }
+
+        footer {
+            padding: 32px 0;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            margin-top: 24px;
+        }
+
+        @media (max-width: 640px) {
+            header { padding: 32px 0 24px; }
+            header h1 { font-size: 22px; }
+            .item { flex-direction: column; gap: 12px; }
+            .item-image { width: 100%; height: 180px; }
+            .item-title { font-size: 15px; }
+            .container { padding: 0 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>The Future Modern</h1>
+            <p>A curated feed of art, design, and culture</p>
+        </header>
+
+        <div class="filters">
+            <span class="filter-label">Filter</span>
+            <button class="filter-btn active" data-filter-all>All</button>
+            <button class="filter-btn" data-filter-category="Art">Art</button>
+            <button class="filter-btn" data-filter-category="Culture">Culture</button>
+            <button class="filter-btn" data-filter-category="Design">Design</button>
+            <span class="filter-label" style="margin-left: 12px">Source</span>
+            <button class="filter-btn" data-filter-source="Artisanal Metals">Artisanal Metals</button>
+            <button class="filter-btn" data-filter-source="Artist Replete">Artist Replete</button>
+            <button class="filter-btn" data-filter-source="Blackpuffin">Blackpuffin</button>
+            <button class="filter-btn" data-filter-source="Block Club Chicago — Arts &amp; Culture">Block Club Chicago — Arts &amp; Culture</button>
+            <button class="filter-btn" data-filter-source="Core77">Core77</button>
+            <button class="filter-btn" data-filter-source="Dezeen">Dezeen</button>
+            <button class="filter-btn" data-filter-source="Newcity Art">Newcity Art</button>
+            <button class="filter-btn" data-filter-source="Newcity Design">Newcity Design</button>
+            <button class="filter-btn" data-filter-source="designboom — Design">designboom — Design</button>
+        </div>
+
+        <div class="feed" id="feed">
+
+        <article class="item" data-source="designboom — Design" data-category="Design">
+            <div class="item-image"><img src="https://www.designboom.com/wp-content/uploads/2026/02/vault-house-encasa-archstudio-kerala-india-designboom-700-500x400-22b08q85r111.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(161, 40%, 45%)">designboom — Design</span>
+                    <span class="item-date">1h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.designboom.com/architecture/encasa-archstudio-tropical-house-concrete-vault-kerala-india/" target="_blank" rel="noopener">encasa archstudio shapes a tropical house with four interlocking concrete vaults</a></h2>
+                <p class='item-desc'>encasa archstudio&#x27;s vault house celebrates tropical living in kerala through exposed concrete vaults balanced by water features. 
+The post encasa archstudio shapes a tropical house with four interlocking concrete vaults appeared first on designboom | architecture &amp; design magazine.</p>
+                <span class="item-author">by kat barandy I designboom</span>
+            </div>
+        </article>
+        <article class="item" data-source="Block Club Chicago — Arts &amp; Culture" data-category="Culture">
+            <div class="item-image"><img src="https://i0.wp.com/bcc-newspack.s3.amazonaws.com/uploads/2026/02/IMG_3367-scaled.jpeg?fit=1024%2C705&amp;amp;ssl=1" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(23, 40%, 45%)">Block Club Chicago — Arts &amp; Culture</span>
+                    <span class="item-date">3h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://blockclubchicago.org/2026/02/13/federal-judge-rules-against-ice-over-memo-that-expanded-power-to-make-warrantless-arrests/" target="_blank" rel="noopener">Federal Judge Rules Against ICE Over Memo That Expanded Power To Make Warrantless Arrests</a></h2>
+                <p class='item-desc'>U.S. District Judge Jeffrey Cummings ruled Friday afternoon that immigration agents must follow the Castañon Nava consent decree, which is still in effect, ruling against an ICE memo that expanded agents&#x27; ability to make warrantless arrest.</p>
+                <span class="item-author">by Francia Garcia Hernandez</span>
+            </div>
+        </article>
+        <article class="item" data-source="designboom — Design" data-category="Design">
+            <div class="item-image"><img src="https://www.designboom.com/wp-content/uploads/2026/02/vintage-film-rolls-miniature-functional-digital-cameras-opt100-designboom-700-500x400-22b08q85r437.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(161, 40%, 45%)">designboom — Design</span>
+                    <span class="item-date">6h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.designboom.com/technology/vintage-film-roll-miniature-functional-digital-camera-opt/" target="_blank" rel="noopener">vintage film roll flips into miniature and functional digital camera</a></h2>
+                <p class='item-desc'>sized at 35mm, the film cartridge can fit into a pocket, small bag, or even hang as an accessory.
+The post vintage film roll flips into miniature and functional digital camera appeared first on designboom | architecture &amp; design magazine.</p>
+                <span class="item-author">by matthew burgos I designboom</span>
+            </div>
+        </article>
+        <article class="item" data-source="Block Club Chicago — Arts &amp; Culture" data-category="Culture">
+            <div class="item-image"><img src="https://i0.wp.com/bcc-newspack.s3.amazonaws.com/uploads/2025/12/123025-MBJ-Interview-Jeremy-Battle-7.jpg?fit=1024%2C682&amp;amp;ssl=1" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(23, 40%, 45%)">Block Club Chicago — Arts &amp; Culture</span>
+                    <span class="item-date">7h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://blockclubchicago.org/2026/02/13/mayor-vetoes-controversial-ban-on-intoxicating-hemp-products/" target="_blank" rel="noopener">Mayor Vetoes Controversial Ban On Intoxicating Hemp Products</a></h2>
+                <p class='item-desc'>Mayor Brandon Johnson has long backed hemp businesses, pointing to minority operators locked out of the state’s limited legal cannabis rollout. His veto — the second of his term — now puts him at odds with City Council.</p>
+                <span class="item-author">by Mack Liederman and Charles Thrush</span>
+            </div>
+        </article>
+        <article class="item" data-source="designboom — Design" data-category="Design">
+            <div class="item-image"><img src="https://www.designboom.com/wp-content/uploads/2026/02/marc-fornes-theverymany-fuselage-louis-vuitton-cafe-store-heathrow-airport-designboom-700-500x400-22b08q85r902.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(161, 40%, 45%)">designboom — Design</span>
+                    <span class="item-date">8h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.designboom.com/architecture/marc-fornes-theverymany-fuselage-louis-vuitton-cafe-store-heathrow-airport/" target="_blank" rel="noopener">marc fornes / THEVERYMANY lands fuselage-like louis vuitton café and store at heathrow</a></h2>
+                <p class='item-desc'>the thin aluminum surface of the structure curves upward as a vertical plane before bending forward into an enveloping form.
+The post marc fornes / THEVERYMANY lands fuselage-like louis vuitton café and store at heathrow appeared first on designboom | architecture &amp; design magazine.</p>
+                <span class="item-author">by thomai tsimpou I designboom</span>
+            </div>
+        </article>
+        <article class="item" data-source="Block Club Chicago — Arts &amp; Culture" data-category="Culture">
+            <div class="item-image"><img src="https://i0.wp.com/bcc-newspack.s3.amazonaws.com/uploads/2026/02/Tribeca-7.jpg?fit=1024%2C576&amp;amp;ssl=1" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(23, 40%, 45%)">Block Club Chicago — Arts &amp; Culture</span>
+                    <span class="item-date">8h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://blockclubchicago.org/2026/02/13/man-beaten-and-robbed-at-gunpoint-in-fulton-market-police-say/" target="_blank" rel="noopener">Man Beaten And Robbed At Gunpoint In Fulton Market, Police Say</a></h2>
+                <p class='item-desc'>The attack took place in broad daylight Thursday on Peoria Street and was caught on camera.</p>
+                <span class="item-author">by Melody Mercado</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/imgi_1_la-miradora-ecuador-taller-general_dezeen_2364_col_32-sq2-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">8h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/13/taller-general-ecuador-la-miradora/" target="_blank" rel="noopener">Taller General creates house that &quot;emerges among volcanoes&quot; in Ecuador</a></h2>
+                <p class='item-desc'>Taller General has completed a brick-and-heavy-timber house that plays on an A-frame system with glass walls to give residents a view of the surrounding volcanoes in Machachi, Ecuador. The 300-square metre (3,230-square foot) house, known as La Miradora, sits in Ecuador&#x27;s central highlands in the pá</p>
+                <span class="item-author">by Kate Mazade</span>
+            </div>
+        </article>
+        <article class="item" data-source="Block Club Chicago — Arts &amp; Culture" data-category="Culture">
+            <div class="item-image"><img src="https://i0.wp.com/bcc-newspack.s3.amazonaws.com/uploads/2026/02/IMG_0384-scaled.jpg?fit=1024%2C768&amp;amp;ssl=1" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(23, 40%, 45%)">Block Club Chicago — Arts &amp; Culture</span>
+                    <span class="item-date">9h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://blockclubchicago.org/2026/02/13/woman-dies-after-being-found-inside-car-in-roscoe-village/" target="_blank" rel="noopener">Woman Dies After Being Found Inside Car In Roscoe Village</a></h2>
+                <p class='item-desc'>A 39-year-old woman was found &quot;unresponsive&quot; but still breathing Thursday afternoon in a car on Damen Avenue, according to police and media reports. She was pronounced dead at Illinois Masonic.</p>
+                <span class="item-author">by Alex V. Hernandez</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/pompidou-Jersey-City-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">11h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/13/jersey-city-cancels-oma-designed-centre-pompidou-expansion/" target="_blank" rel="noopener">Jersey City cancels OMA-designed Centre Pompidou expansion</a></h2>
+                <p class='item-desc'>The mayor of Jersey City in New Jersey, USA has reportedly confirmed the metro&#x27;s decision to abandon the anticipated Centre Pompidou x Jersey City expansion after years of starts and stops and negotiations between the two parties. The scrapped plans were confirmed by mayor James Solomon earlier this</p>
+                <span class="item-author">by Josh Niland</span>
+            </div>
+        </article>
+        <article class="item" data-source="designboom — Design" data-category="Design">
+            <div class="item-image"><img src="https://www.designboom.com/wp-content/uploads/2026/02/rhinoceros-in-the-room-KMd-designboom-700-500x400-22b08q85r877.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(161, 40%, 45%)">designboom — Design</span>
+                    <span class="item-date">12h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.designboom.com/art/inflatable-rhinoceros-medieval-gallery-kunstmuseum-magdeburg-itamar-gov-sculpture/" target="_blank" rel="noopener">an inflatable rhinoceros occupies the medieval gallery of kunstmuseum magdeburg</a></h2>
+                <p class='item-desc'>&#x27;the rhinoceros in the room,&#x27; an inflatable installation by itamar gov, fills the nave of kunstmuseum magdeburg in germany. 
+The post an inflatable rhinoceros occupies the medieval gallery of kunstmuseum magdeburg appeared first on designboom | architecture &amp; design magazine.</p>
+                <span class="item-author">by kat barandy I designboom</span>
+            </div>
+        </article>
+        <article class="item" data-source="Block Club Chicago — Arts &amp; Culture" data-category="Culture">
+            <div class="item-image"><img src="https://i0.wp.com/bcc-newspack.s3.amazonaws.com/uploads/2026/02/IMG_2362-scaled.jpg?fit=1024%2C683&amp;amp;ssl=1" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(23, 40%, 45%)">Block Club Chicago — Arts &amp; Culture</span>
+                    <span class="item-date">14h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://blockclubchicago.org/2026/02/13/lakeview-neighbors-rattled-by-fatal-carjacking/" target="_blank" rel="noopener">Lakeview Neighbors Rattled By Fatal Carjacking</a></h2>
+                <p class='item-desc'>Neighbors say the early morning shooting that killed a 22-year-old man was unsettling as they typically feel safe in the area. Investigators have linked the stolen car to a second fatal shooting in Bronzeville an hour later.</p>
+                <span class="item-author">by Patrick Filbin</span>
+            </div>
+        </article>
+        <article class="item" data-source="Block Club Chicago — Arts &amp; Culture" data-category="Culture">
+            <div class="item-image"><img src="https://i0.wp.com/bcc-newspack.s3.amazonaws.com/uploads/2026/01/012526-Snowy-Day-Colin-Boyle-2885.jpg?fit=1024%2C682&amp;amp;ssl=1" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(23, 40%, 45%)">Block Club Chicago — Arts &amp; Culture</span>
+                    <span class="item-date">14h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://blockclubchicago.org/2026/02/13/heres-block-club-chicagos-annual-bucket-list-to-get-you-through-the-rest-of-winter/" target="_blank" rel="noopener">Here’s Block Club Chicago’s Annual Bucket List To Get You Through The Rest Of Winter</a></h2>
+                <p class='item-desc'>There’s lots you can do during Chicago&#x27;s bleakest season. Our staffers offer their favorite ways to make the most of winter.</p>
+                <span class="item-author">by Block Club Chicago Staff</span>
+            </div>
+        </article>
+        <article class="item" data-source="Block Club Chicago — Arts &amp; Culture" data-category="Culture">
+            <div class="item-image"><img src="https://i0.wp.com/bcc-newspack.s3.amazonaws.com/uploads/2026/02/IMG_3341-scaled.jpeg?fit=1024%2C768&amp;amp;ssl=1" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(23, 40%, 45%)">Block Club Chicago — Arts &amp; Culture</span>
+                    <span class="item-date">14h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://blockclubchicago.org/2026/02/13/latino-owned-businesses-struggle-to-recover-as-midway-blitz-impacts-linger/" target="_blank" rel="noopener">Latino-Owned Businesses Struggle To Recover As Midway Blitz Impacts Linger</a></h2>
+                <p class='item-desc'>Latino-owned businesses on the Southwest Side are still seeing low sales. &quot;I hope people shop local and support local businesses,&quot; one owner said.</p>
+                <span class="item-author">by Francia Garcia Hernandez</span>
+            </div>
+        </article>
+        <article class="item" data-source="Block Club Chicago — Arts &amp; Culture" data-category="Culture">
+            <div class="item-image"><img src="https://i0.wp.com/bcc-newspack.s3.amazonaws.com/uploads/2026/02/MixCollage-13-Feb-2026-11-48-AM-850.jpg?fit=1024%2C666&amp;amp;ssl=1" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(23, 40%, 45%)">Block Club Chicago — Arts &amp; Culture</span>
+                    <span class="item-date">14h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://blockclubchicago.org/2026/02/13/local-h-and-record-label-feud-over-reissue-of-as-good-as-dead-anniversary-vinyl-release/" target="_blank" rel="noopener">Local H And Record Label Feud Over Reissue Of ‘As Good As Dead’ Anniversary Vinyl Release</a></h2>
+                <p class='item-desc'>Enjoy the Ride Records announced the 30th anniversary vinyl reissue of Local H&#x27;s seminal sophomore album on Feb. 6. The band&#x27;s response: &quot;This is news to us.&quot;</p>
+                <span class="item-author">by Gwen Ihnat</span>
+            </div>
+        </article>
+        <article class="item" data-source="Block Club Chicago — Arts &amp; Culture" data-category="Culture">
+            <div class="item-image"><img src="https://i0.wp.com/bcc-newspack.s3.amazonaws.com/uploads/2026/02/021126-MarimarMartinez-1.jpg?fit=1024%2C682&amp;amp;ssl=1" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(23, 40%, 45%)">Block Club Chicago — Arts &amp; Culture</span>
+                    <span class="item-date">14h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://blockclubchicago.org/2026/02/13/this-week-in-photos-marimar-martinez-shooting-evidence-released-west-side-record-store-turns-40-and-more/" target="_blank" rel="noopener">This Week In Photos: Marimar Martinez Shooting Evidence Released, West Side Record Store Turns 40 And More</a></h2>
+                <p class='item-desc'>PHOTOS: Take a peek at life in the city through the eyes and lenses of the Block Club Chicago staff.</p>
+                <span class="item-author">by Colin Boyle</span>
+            </div>
+        </article>
+        <article class="item" data-source="Block Club Chicago — Arts &amp; Culture" data-category="Culture">
+            <div class="item-image"><img src="https://i0.wp.com/bcc-newspack.s3.amazonaws.com/uploads/2026/02/EXPO-Chicago-2025-004_Photo-by-Lucy-Hewett-_-CKA.-Courtesy-of-Frieze-scaled.jpg?fit=1024%2C683&amp;amp;ssl=1" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(23, 40%, 45%)">Block Club Chicago — Arts &amp; Culture</span>
+                    <span class="item-date">14h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://blockclubchicago.org/2026/02/13/expo-chicago-the-citys-largest-art-fair-downsizing-under-new-leadership/" target="_blank" rel="noopener">Expo Chicago, The City’s Largest Art Fair, Downsizing Under New Leadership</a></h2>
+                <p class='item-desc'>Organizers say they want to create a more curated, accessible experience, but some local artist nonprofits feel excluded as their section is cut this year’s fair — which is about 23 percent smaller from previous years.</p>
+                <span class="item-author">by Leen Yassine</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/loja-lighting-migard-dezeen-showroom_dezeen_2364_col_0-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">15h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/13/products-lighting-tables-homeware-glass-dezeen-showroom/" target="_blank" rel="noopener">Seven products that spotlight the versatility of glass</a></h2>
+                <p class='item-desc'>Dezeen Showroom: the following lighting, tables and drinkware recently published on our Showroom section showcase the many uses, colours and finishes of glass. Glass continues to be an enduringly popular material among furniture and lighting designers and manufacturers, thanks to its robust nature a</p>
+                <span class="item-author">by Alice Laycock</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Art" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(327, 40%, 45%)">Newcity Art</span>
+                    <span class="item-date">16h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://art.newcity.com/2026/02/13/how-fredrik-vaerslev-loosens-up-abstraction-at-neubauer-collegium/" target="_blank" rel="noopener">How Fredrik Værslev Loosens Up Abstraction at Neubauer Collegium</a></h2>
+                <p class='item-desc'>The artist&#x27;s first institutional solo sheds modernism’s conceptual weight in favor of sly play, perception and everyday connection.</p>
+                <span class="item-author">by Lucas Gomez-Doyle</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Design" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(129, 40%, 45%)">Newcity Design</span>
+                    <span class="item-date">16h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://design.newcity.com/2026/02/13/inspired-by-grandmothers-heirlooms-how-jenna-london-jewelry-balances-memory-meaning-and-wearability/" target="_blank" rel="noopener">Inspired by Grandmother’s Heirlooms: How Jenna London Jewelry Balances Memory, Meaning and Wearability</a></h2>
+                <p class='item-desc'>Rooted in memory and refined through a contemporary perspective, Chicago-based designer Jenna Mendelsohn’s jewelry is lived with—not saved for special occasions, but for the in-between moments, too.</p>
+                <span class="item-author">by Vasia Rigou</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/sq-gilberts-cottage-castley-mccrimmon-architects_dezeen_2364_col_1-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">17h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/13/gilberts-cottage-castley-mccrimmon-architects/" target="_blank" rel="noopener">Castley McCrimmon Architects adds &quot;respectful and measured&quot; extension to Gilbert&#x27;s Cottage</a></h2>
+                <p class='item-desc'>Neutral tones and glimpses of garden spaces define this extension to a 1870s cottage in Albany, Western Australia, revealed here exclusively by Australian studio Castley McCrimmon Architects. Named Gilbert&#x27;s Cottage, the existing single-storey home was renovated to contain three bedrooms and a bathr</p>
+                <span class="item-author">by Amy Peacock</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/lovefrom-ferrari-jony-ive_dezeen_2364_col_18-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">17h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/13/jony-ive-marc-newson-lovefrom-ferrari-luce-interior/" target="_blank" rel="noopener">Jony Ive and Marc Newson shun touchscreens for interior of Ferrari&#x27;s first electric car</a></h2>
+                <p class='item-desc'>Carmaker Ferrari has released preview images of the interiors for its first electric car, Ferrari Luce, designed with Jony Ive, Marc Newson and their design studio LoveFrom. Mechanical buttons, dials, toggles and switches abound across the car&#x27;s interfaces, unveiled this week ahead of the exterior r</p>
+                <span class="item-author">by Jennifer Hahn</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/heart-cone-chair-verner-panton-1-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">17h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/13/verner-panton-products-100-year-anniversary/" target="_blank" rel="noopener">Ten Verner Panton products that have stood the test of time</a></h2>
+                <p class='item-desc'>The late mid-century modern designer Verner Panton was born 100 years ago today. To mark the occasion, we have rounded up 10 of his most enduring pieces of furniture and lighting. Born in Brahesborg-Gamtofte in Denmark on 13 February 1926, Panton left an indelible mark on the design industry and is </p>
+                <span class="item-author">by Jane Englefield</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2024/10/verner-panton-portrait-mid-century-modern_dezeen_2364_col_1-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">17h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/13/verner-panton-100-years-mid-century-modern/" target="_blank" rel="noopener">Verner Panton preferred experimentation to &quot;beautiful platitude&quot;</a></h2>
+                <p class='item-desc'>Verner Panton caused a sensation with his pioneering approach to furniture and lighting design. To mark the centenary of the Danish designer&#x27;s birth today, we profile the man whose colourful pieces and interiors defined an era. With their vibrant colours and undulating shapes, Verner Panton&#x27;s Heart </p>
+                <span class="item-author">by Cajsa Carlson</span>
+            </div>
+        </article>
+        <article class="item" data-source="designboom — Design" data-category="Design">
+            <div class="item-image"><img src="https://www.designboom.com/wp-content/uploads/2026/02/light-sculptures-ancestral-designs-antique-doilies-lace-textile-kinship-lana-launay-designboom-700-500x400-22b08q85r656.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(161, 40%, 45%)">designboom — Design</span>
+                    <span class="item-date">18h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.designboom.com/design/light-sculptures-preserve-ancestral-designs-antique-doilies-lace-textile-lana-launay-kinship/" target="_blank" rel="noopener">light sculptures preserve ancestral designs through antique doilies and lace textiles</a></h2>
+                <p class='item-desc'>each doily has been collected from different families, passed down through generations before entering the light works.
+The post light sculptures preserve ancestral designs through antique doilies and lace textiles appeared first on designboom | architecture &amp; design magazine.</p>
+                <span class="item-author">by matthew burgos I designboom</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/dezeen-weekly-podcast-13-february-2026-sq-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">18h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/13/big-protests-the-loop-stockholm-dezeen-weekly-podcast/" target="_blank" rel="noopener">&quot;Bjarke Ingels, shame on you!&quot;</a></h2>
+                <p class='item-desc'>In the latest episode of Dezeen Weekly, we talk about why protestors staged a demonstration outside the office of BIG, and whether a Saudi-inspired proposal for a high-speed railway connecting five countries is realistic. This week&#x27;s podcast covers the industrial dispute that has broken out at the L</p>
+                <span class="item-author">by Dezeen staff</span>
+            </div>
+        </article>
+        <article class="item" data-source="designboom — Design" data-category="Design">
+            <div class="item-image"><img src="https://www.designboom.com/wp-content/uploads/2026/02/low-rise-vaults-undulating-roofline-nursery-school-mallorca-bos-arquitectes-designboom-700-500x400-22b08q85r052.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(161, 40%, 45%)">designboom — Design</span>
+                    <span class="item-date">18h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.designboom.com/architecture/low-rise-vaults-undulating-roofline-nursery-school-mallorca-bos-arquitectes/" target="_blank" rel="noopener">low-rise vaults trace undulating roofline of nursery school in mallorca by BOS arquitectes</a></h2>
+                <p class='item-desc'>the roof, finished in yellow-ochre glaze, resonates with the local chromatic palette of sand-colored marés stone and clay roof tiles.
+The post low-rise vaults trace undulating roofline of nursery school in mallorca by BOS arquitectes appeared first on designboom | architecture &amp; design magazine.</p>
+                <span class="item-author">by thomai tsimpou I designboom</span>
+            </div>
+        </article>
+        <article class="item" data-source="designboom — Design" data-category="Design">
+            <div class="item-image"><img src="https://www.designboom.com/wp-content/uploads/2026/02/minimalist-architecture-design-studio-project-residence-bb-214-india-designboom-700-500x400-22b08q85r991.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(161, 40%, 45%)">designboom — Design</span>
+                    <span class="item-date">19h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.designboom.com/architecture/interplay-restrained-volumes-voids-residence-bb-214-india-minimalist-architecture-design-studio/" target="_blank" rel="noopener">an interplay of restrained volumes and voids composes residence_bb 214 in india</a></h2>
+                <p class='item-desc'>spatial sequencing shapes the experience of movement through the home.
+The post an interplay of restrained volumes and voids composes residence_bb 214 in india appeared first on designboom | architecture &amp; design magazine.</p>
+                <span class="item-author">by samridh aneja</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/bambi-bar-nicola-weetch-london-fields_dezeen_2364_col_sq5-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">20h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/13/nicola-weetch-london-fields-record-bar-bambi/" target="_blank" rel="noopener">Nicola Weetch designs London Fields record bar &quot;to feel lived-in&quot;</a></h2>
+                <p class='item-desc'>Hackney restaurant and listening bar Bambi has been doubled in size with a revamped interior and a custom-made stainless-steel-and-wood wall cabinet for vinyl records. Designer Nicola Weetch led the interior design of the project, which came about after Bambi expanded into an empty venue behind the </p>
+                <span class="item-author">by Cajsa Carlson</span>
+            </div>
+        </article>
+        <article class="item" data-source="designboom — Design" data-category="Design">
+            <div class="item-image"><img src="https://www.designboom.com/wp-content/uploads/2026/02/zwarte-fles-residence-vi-architectuur-atelier-gent-belgium-designboom-700-500x400-22b08q85r096.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(161, 40%, 45%)">designboom — Design</span>
+                    <span class="item-date">21h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.designboom.com/architecture/brick-lattice-facade-renovated-de-zwarte-fles-workspace-belgium-vi-architectuuratelier-gent/" target="_blank" rel="noopener">brick lattice facade filters sunlight into renovated ‘de zwarte fles’ workspace in belgium</a></h2>
+                <p class='item-desc'>vi.architectuuratelier&#x27;s &#x27;de zwarte fles&#x27; brings and contemporary workspaces to historic architecture in gent, belgium.
+The post brick lattice facade filters sunlight into renovated ‘de zwarte fles’ workspace in belgium appeared first on designboom | architecture &amp; design magazine.</p>
+                <span class="item-author">by kat barandy I designboom</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/sinners-inc-aarhus-tattoo-parlour-interiors-kidz-studio_dezeen_sq-1-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">23h ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/13/sinners-tattoo-parlour-interiors-aarhus-kidz-studio/" target="_blank" rel="noopener">Kidz Studio designs Sinners tattoo parlour to illustrate the cycle of life</a></h2>
+                <p class='item-desc'>Engraved walls, vivid red lighting and abstract sculptures feature in this Aarhus tattoo parlour designed by architecture practice Kidz Studio, so that clients can leave feeling &quot;reborn&quot;. The design scheme of the tattoo parlour was developed around the term &quot;sinners&quot; and its connection to wider spir</p>
+                <span class="item-author">by Natasha Levy</span>
+            </div>
+        </article>
+        <article class="item" data-source="designboom — Design" data-category="Design">
+            <div class="item-image"><img src="https://www.designboom.com/wp-content/uploads/2026/02/origami-inspired-watch-casio-texture-washi-paper-designboom-700-1-500x400-22b08q85r267.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(161, 40%, 45%)">designboom — Design</span>
+                    <span class="item-date">yesterday</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.designboom.com/design/origami-g-shock-watches-casio-washi-paper-texture-bezel/" target="_blank" rel="noopener">origami G-SHOCK watches by casio let users feel washi paper texture around bezel</a></h2>
+                <p class='item-desc'>rooted in the traditions of oshōgatsu, japan’s new year celebration, the models pay homage to the nation’s ancient craft.
+The post origami G-SHOCK watches by casio let users feel washi paper texture around bezel appeared first on designboom | architecture &amp; design magazine.</p>
+                <span class="item-author">by matthew burgos I designboom</span>
+            </div>
+        </article>
+        <article class="item" data-source="designboom — Design" data-category="Design">
+            <div class="item-image"><img src="https://www.designboom.com/wp-content/uploads/2026/02/omar-gandhi-suspends-east-river-residence-rugged-nova-scotia-coastline-thumb-500x400-22b08q85r536.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(161, 40%, 45%)">designboom — Design</span>
+                    <span class="item-date">yesterday</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.designboom.com/architecture/omar-gandhi-suspends-east-river-residence-rugged-nova-scotia-coastline/" target="_blank" rel="noopener">omar gandhi suspends east river residence over rugged nova scotia coastline</a></h2>
+                <p class='item-desc'>omar gandhi&#x27;s &#x27;east river residence&#x27; is elevated atop slender steel columns to float over the rocky terrain of nova scotia. 
+The post omar gandhi suspends east river residence over rugged nova scotia coastline appeared first on designboom | architecture &amp; design magazine.</p>
+                <span class="item-author">by kat barandy I designboom</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/bad-bunny_super-bowl-lx_dezeen_2364_sq-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">yesterday</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/12/bad-bunny-super-bowl-lx-set-harriet-cuddeford-dezeen-agenda/" target="_blank" rel="noopener">Dezeen Agenda features Bad Bunny&#x27;s Super Bowl set design</a></h2>
+                <p class='item-desc'>The latest edition of our weekly Dezeen Agenda newsletter features the set design for Bad Bunny&#x27;s Super Bowl show. Subscribe to Dezeen Agenda now. Creative director Harriet Cuddeford and Yellow Studio created the immersive stage for Puerto Rican artist Bad Bunny&#x27;s halftime show at this year&#x27;s Super </p>
+                <span class="item-author">by Saudatu Bah</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/waca-rochas-florida-compound-brazil_dezeen_2364_sq2-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">yesterday</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/12/waca-design-julia-kosciuk-brazilian-rochas-compound-low-embodied-carbon/" target="_blank" rel="noopener">WaCa Design aims for low embodied carbon in Brazilian seaside compound</a></h2>
+                <p class='item-desc'>New York studio WaCa Design and local studio Julia Kosciuk Arquiteta have used local materials and low-carbon methods for an expansive waterfront compound in Santa Catarina, Brazil, which bridges the beach and mountainous landscape. Designed by New York City-based WaCa Design with Brazilian studio J</p>
+                <span class="item-author">by Kate Mazade</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/cc-tapis-sabine-marcelis-mexico-art-week-sq-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">yesterday</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/12/mexico-city-art-week-design-architecture-2026/" target="_blank" rel="noopener">Eight exhibitions that showed design&#x27;s growing relevance at Mexico City art week</a></h2>
+                <p class='item-desc'>From ingenious sofa-rugs by Sabine Marcelis to an exhibition about waste in architecture and Mexican architects showing furniture in a modernist house, here are eight design-forward exhibitions from Mexico City art week. With a growing design section at anchor fair Zona Maco and the world-class arch</p>
+                <span class="item-author">by Ben Dreith</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">yesterday</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/pop-artwork-17-underrated-contemporary-artists-you-should-know" target="_blank" rel="noopener">Pop Artwork: 17 Underrated Contemporary Artists You Should Know</a></h2>
+                <p class='item-desc'>Pop artwork has evolved far beyond its origins. Discover 17 underrated contemporary artists reshaping pop culture through bold imagery, street-rooted collage, and reimagined iconography.More</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Art" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(327, 40%, 45%)">Newcity Art</span>
+                    <span class="item-date">yesterday</span>
+                </div>
+                <h2 class="item-title"><a href="https://art.newcity.com/2026/02/12/kelli-connell-explores-the-relationship-between-artists-and-muses-at-elmhurst-art-museum/" target="_blank" rel="noopener">Kelli Connell Explores the Relationship Between Artists and Muses at Elmhurst Art Museum</a></h2>
+                <p class='item-desc'>Photographer Kelli Connell’s work is mature and exquisitely made, and her thought processes create a visual and psychological labyrinth that is marvelous to wander through.</p>
+                <span class="item-author">by Susan Aurinko</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/01/johan-sundberg-arkitektur-tengbom-kampasten-hub-sweden-sq2_dezeen_2364_col_0-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">yesterday</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/12/johan-sundberg-arkitektur-tengbom-kampasten-hub-sweden/" target="_blank" rel="noopener">Timber-framed Stockholm School of Economics hub added to forest campus</a></h2>
+                <p class='item-desc'>Local studios Johan Sundberg Arkitektur and Tengbom used an exposed structure of pine and spruce to create a &quot;sensory experience&quot; at Kursgården Kämpasten, a campus of the Stockholm School of Economics in Sweden. Set within a secluded and forested slope close to Lake Mälaren on the outskirts of Sigtu</p>
+                <span class="item-author">by Jon Astbury</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/inflating-jacket-nike-air-milano-2026-winter-olympics_dezeen_2364_sq_20-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">yesterday</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/12/inflating-jacket-nike-air-milano-2026-winter-olympics/" target="_blank" rel="noopener">Nike reveals inflating Air Milano Jacket at 2026 Winter Olympics</a></h2>
+                <p class='item-desc'>Sportswear brand Nike has created an air-filled jacket that can be inflated and deflated, which is being worn by Team USA at this year&#x27;s Olympics. Here, Nike chief design officer Martin Lotti explains why it&#x27;s not a gimmick. Showcased in an installation created in a series of railway arches in Milan</p>
+                <span class="item-author">by Tom Ravenscroft</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/sq4-stockholm-design-week-2026-feature-c_dezeen_2364_col_0-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">yesterday</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/12/stockholm-furniture-fair-2026-cancellation-reactions/" target="_blank" rel="noopener">Cancellation of 2026 Stockholm Furniture Fair &quot;the best thing that could happen&quot; for local industry</a></h2>
+                <p class='item-desc'>The cancellation of this year&#x27;s Stockholm Furniture Fair was a necessary wake-up call for the Swedish design industry, insiders told Dezeen during a grassroots event they organised to take its place. Last October, with exhibitor take-up for the fair&#x27;s 2026 edition proving sluggish, organisers Stockh</p>
+                <span class="item-author">by Jennifer Hahn</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/london-liverpool-street-station-acme-revamp-architecture-news-uk-england_dezeen_1704_sq-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">yesterday</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/12/liverpool-street-station-revamp-approved/" target="_blank" rel="noopener">Controversial Liverpool Street station revamp gets green light</a></h2>
+                <p class='item-desc'>British studio ACME&#x27;s contentious design for the revamp of the UK&#x27;s busiest train station, London Liverpool Street, has been granted planning permission. Approved by the City of London&#x27;s planning committee, the overhaul is being carried out to improve accessibility and accommodate an increasing numb</p>
+                <span class="item-author">by Lizzie Crook</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/zaha-hadid-architects-nicfc-skyscraper-taipei-sq_dezeen_2364_col_1-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">yesterday</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/12/zaha-hadid-architects-nicfc-skyscraper-taipei/" target="_blank" rel="noopener">Zaha Hadid Architects draws on fluted orchid for Taipei skyscraper</a></h2>
+                <p class='item-desc'>UK studio Zaha Hadid Architects and Taiwanese studio CY Lee &amp; Partners have unveiled plans for a 47-storey-tall skyscraper beside a 1930s post office in Taipei. Planned for the city&#x27;s financial district, the National Innovation, Creativity and Finance Center, or NICFC, will house four financial inst</p>
+                <span class="item-author">by Starr Charles</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/arbour-house-andrei-saltykov_dezeen_2364_sq_0-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">yesterday</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/12/arbour-house-andrei-saltykov/" target="_blank" rel="noopener">Andrei Saltykov installs house with timber diagrid roof on north London backland</a></h2>
+                <p class='item-desc'>Crisscrossing planks of glulam timber form the sculptural roof of Arbour House, a family home designed by London-based architect Andrei Saltykov. Saltykov, who leads the studio Andrei Saltykov and Partners, completed the two-storey, semi-subterranean house on a backland plot surrounded by residentia</p>
+                <span class="item-author">by Amy Frearson</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/hoff-covent-garden-el-departamento-london_dezeen_2364_col_sq3-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">yesterday</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/12/el-departamento-hoff-store-london/" target="_blank" rel="noopener">El Departamento decorates Hoff store with bright tiles to &quot;inject warmth into the London context&quot;</a></h2>
+                <p class='item-desc'>Interiors studio El Departamento has designed the Covent Garden flagship store for Spanish trainer brand Hoff, which features handmade zellige ceramics and sculptural furniture. The 163-square-metre London store was designed as an evolution of the Hoff flagship in Madrid, rather than a replica. El D</p>
+                <span class="item-author">by Cajsa Carlson</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/hub-city-heights-kadre-architects-sq-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">2d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/11/kadre-architects-rundown-la-motel-permanent-housing-for-homeless/" target="_blank" rel="noopener">Kadre Architects converts rundown Los Angeles motel into permanent housing</a></h2>
+                <p class='item-desc'>Bright colours and curvy pathways are found at a supportive housing complex in Los Angeles&#x27; East Compton neighbourhood, which was designed by US studio Kadre Architects to &quot;strike a balance between a serious and playful feel&quot;. The project involved transforming a neglected motel in East Compton – a c</p>
+                <span class="item-author">by Jenna McKnight</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/casa-locken-furniture-showcase-bilbao-canales-mexico_dezeen_2364_squse-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">2d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/11/omet-casa-locken-furniture-bilbao-canales-mexico/" target="_blank" rel="noopener">Furniture by Tatiana Bilbao, Fernanda Canales and others fills modernist Mexico house</a></h2>
+                <p class='item-desc'>A collection of furniture by famed Mexican architects and designers under the Omet label was showcased in a modernist house in Mexico City during the city&#x27;s art week. The home was used to show the fourth collection by gallery Omet, an outfit led by architect Lorena Vieyra, whose Austin, Texas, outpo</p>
+                <span class="item-author">by Ben Dreith</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/dezeen_2364_col_0-11-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">2d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/11/lamp-collection-moveable-parts-moholy-nagy-university-of-art-and-design-schoolshows/" target="_blank" rel="noopener">Lamp range with moveable parts among projects from Moholy-Nagy University of Art and Design</a></h2>
+                <p class='item-desc'>Dezeen School Shows: a lamp collection, designed with moveable parts for customisation, is among the projects from Moholy-Nagy University of Art and Design. Also featured is an electric bike design with interchangeable components to suit user needs, and an interactive installation that forms a lands</p>
+                <span class="item-author">by Dezeen staff</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Art" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(327, 40%, 45%)">Newcity Art</span>
+                    <span class="item-date">2d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://art.newcity.com/2026/02/11/antonius-tin-bui-splits-the-body-and-the-spirit-at-monique-meloche-gallery/" target="_blank" rel="noopener">Antonius-Tín Bui Splits the Body and the Spirit at Monique Meloche Gallery</a></h2>
+                <p class='item-desc'>The artist&#x27;s solo exhibition, “here, there is a different kind of sun,” pairs queer desire with quiet, oceanic introspection.</p>
+                <span class="item-author">by Ally Fouts</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/01/garden-pavilion-studio-okami-extension-belsese-belgium-architecture_dezeen_2364_sq-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">2d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/11/garden-pavilion-studio-okami-architecten/" target="_blank" rel="noopener">Studio Okami Architecten updates Belgian home with The Garden Pavilion</a></h2>
+                <p class='item-desc'>Antwerp practice Studio Okami Architecten has extended a family home in Belsele, Belgium, adding a pavilion-like volume clad in green marble that opens onto the garden. Named The Garden Pavilion, the project was completed for a client who bought their grandparents&#x27; home, aiming to modernise the prop</p>
+                <span class="item-author">by Rheanna Hopkins</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/central-crossing-foster-partners-hong-kong_dezeen_2364_col_sq1-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">2d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/11/central-crossing-skyscrapers-hong-kong-foster-partners/" target="_blank" rel="noopener">Foster + Partners&#x27; Central Crossing skyscrapers top out in Hong Kong</a></h2>
+                <p class='item-desc'>British studio Foster + Partners&#x27; Central Crossing skyscrapers, which feature an &quot;illuminated spire&quot; that runs the full length of the taller tower, have topped out in Hong Kong. Set to be completed in the middle of this year, the Central Crossing development comprises two towers – a taller 160-metre</p>
+                <span class="item-author">by Cajsa Carlson</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/museum-of-jesus-baptism-niall-mclaughlin-architects-jordan_dezeen_1704_sq-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">2d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/11/niall-mclaughlin-the-museum-jesus-baptism/" target="_blank" rel="noopener">Niall McLaughlin designs museum to tell &quot;story of baptism&quot; in Jordan</a></h2>
+                <p class='item-desc'>London studio Niall McLaughlin Architects has released visuals of The Museum of Jesus&#x27; Baptism in Jordan, which will be constructed using local skills and materials, including rammed earth and stone. Scheduled to open in 2030, the low-lying museum will sit close to the Baptism Site on the east bank </p>
+                <span class="item-author">by Lizzie Crook</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/tot-table-isern-serra-omelette-editions-dezeen-showroom_dezeen_2364_sq2-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">2d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/11/tot-table-isern-serra-omelette-editions-dezeen-showroom/" target="_blank" rel="noopener">TOT table by Isern Serra for Omelette Editions</a></h2>
+                <p class='item-desc'>Dezeen Showroom: Spanish designer Isern Serra and furniture brand Omelette Editions aimed to elevate office spaces with the TOT table, a co-working desk with a distinctive split tabletop. The TOT table features a bold geometric design defined by its bisected rectangular tabletop, which stretches out</p>
+                <span class="item-author">by Dezeen staff</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/nike-train-olympic-all-conditions-express-acg_dezeen_2364_sq_2-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">2d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/11/nike-train-olympic-all-conditions-express-acg/" target="_blank" rel="noopener">Nike creates All Conditions Express train to mark relaunch of ACG brand</a></h2>
+                <p class='item-desc'>Sportswear brand Nike has created an all-orange, heavily branded train at the Milano-Cortino Winter Olympics to mark the relaunch of All Conditions Gear. Nike repurposed an Italian commuter train to transport people from central Milan to the Italian alps to showcase the values of the reintroduced Al</p>
+                <span class="item-author">by Tom Ravenscroft</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/dezeen-awards-2026-launches_dezeen_2364_col_0-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">2d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/11/dezeen-awards-2026-launch-open-for-entries/" target="_blank" rel="noopener">Dezeen Awards 2026 launches and adds new Regional Showcases</a></h2>
+                <p class='item-desc'>Today we&#x27;re launching Dezeen Awards 2026, in partnership with Trimble, our new headline sponsor, beginning this year&#x27;s search for the best buildings, interiors and designs around the world. Alongside our 49 project awards, this year we&#x27;ve made one significant and exciting addition. For our 2026 edit</p>
+                <span class="item-author">by Claire Barrett</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/bradfield-city-australia-som-hassell-sq_dezeen_2364_col_2-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">2d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/11/plans-unveiled-australias-first-new-city-100-years/" target="_blank" rel="noopener">Plans unveiled for Australia&#x27;s first new city in over 100 years</a></h2>
+                <p class='item-desc'>American studio SOM and Australian studio Hassell have revealed plans for Bradfield City, a new, 114-hectare city in western Sydney, which is set to include 10,000 homes, a university campus and a two-hectare park. Planned to be located beside the recently-completed Western Sydney International Airp</p>
+                <span class="item-author">by Starr Charles</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/lammhults-showroom-note-design-studio-sq-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">2d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/11/note-design-studio-lammhults-showroom/" target="_blank" rel="noopener">Note Design Studio envisions Lammhults showroom as hub for creative collaboration</a></h2>
+                <p class='item-desc'>During Stockholm Design Days, furniture brand Lammhults Design Group opened a showroom created by Note Design Studio to provide a neutral backdrop for presenting its range of contract furniture. The company, which includes the Lammhults, Abstracta, Fora Form and Ragnars brands, wanted to develop a s</p>
+                <span class="item-author">by Alyn Griffiths</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/mute-modular-new-office-adaptability-study-sq-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">3d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/11/mute-study-modular-office-rooms-more-efficient-sustainable/" target="_blank" rel="noopener">EthosEQ study finds Mute Modular rooms &quot;far more economically efficient than traditional constructions&quot;</a></h2>
+                <p class='item-desc'>Promotion: cost consultancy EthosEQ has completed a report for workplace furniture brand Mute, which found that Mute&#x27;s Modular, a room-in-room office system, reduces businesses&#x27; costs and emissions. Commissioned by Poland-based Mute, the study can be downloaded as a free PDF. It concluded that swapp</p>
+                <span class="item-author">by Dezeen staff</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/imgi_1_studio-gang-brooklyn-shirley-chisholm-recreation-center_dezeen_2364_col_2-sq2-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">3d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/10/studio-gang-shirley-chisholm-recreation-center-brooklyn/" target="_blank" rel="noopener">Studio Gang completes Brooklyn recreation centre with &quot;welcoming presence&quot;</a></h2>
+                <p class='item-desc'>American architecture practice Studio Gang has completed the Shirley Chisholm Recreation Center in Central Brooklyn, a rippled brick building that contains a fitness centre and public programming for the surrounding neighbourhood. Named after the first Black woman to be elected to the United States </p>
+                <span class="item-author">by Ellen Eberhardt</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/01/tres-birds-iris-residence-colorado_dezeen_2364_sq-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">3d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/10/tres-birds-iris-residence-colorado-low-energy-salvaged/" target="_blank" rel="noopener">Tres Birds outfits energy-efficient Colorado house with reclaimed materials</a></h2>
+                <p class='item-desc'>Denver-based studio Tres Birds Inc has completed a compact, gabled home using salvaged library fittings and material from a bowling alley in Boulder, Colorado, revealed exclusively on Dezeen. Known as the Iris Residence, the 2,572-square-foot (240-square metre) single-family residence sits on a newl</p>
+                <span class="item-author">by Kate Mazade</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/simon-skinner-buke-2026_dezeen_2364_sq-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">3d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/10/simon-skinner-buke-lamps-dezeen-debate/" target="_blank" rel="noopener">&quot;Amazing concept that should be celebrated&quot; features in Dezeen Debate</a></h2>
+                <p class='item-desc'>The latest edition of our Dezeen Debate newsletter features sculptural lights made from unwanted glassware by designer Simon Skinner. Subscribe to Dezeen Debate now. At Stockholm Creative Edition, Swedish designer Simon Skinner unveiled a series of sculptural lights made from second-hand glass sourc</p>
+                <span class="item-author">by Saudatu Bah</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/unique-design-x-mexico-city-2026_dezeen_2364_sq-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">3d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/10/unique-design-x-mexico-city-2026/" target="_blank" rel="noopener">Interactivity and local talent shine at Unique Design X Mexico City</a></h2>
+                <p class='item-desc'>Interactive design in a geographic jukebox and an acoustic ping-pong table featured alongside an exhibition made with local found waste materials at Unique Design X during Mexico City art week 2026. Located in a moodily lit ground-floor room of the Expo Reforma venue in the city centre, nomadic show</p>
+                <span class="item-author">by Ben Dreith</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/dezeen_2364_col_0-8-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">3d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/10/architecture-wind-behaviour-american-university-in-dubai-schoolshows/" target="_blank" rel="noopener">Wind-responsive architecture proposal among projects from American University in Dubai</a></h2>
+                <p class='item-desc'>Dezeen School Shows: a building that creates calmer microclimates by responding to wind behaviour is among the architecture proposals from American University in Dubai. Also featured is a proposal for a project designed to adapt to its desert environment, and another featuring self-shading and therm</p>
+                <span class="item-author">by Dezeen staff</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/tata-bed-bolzan-design_dezeen_2364_sq-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">3d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/10/tata-bed-bolzan-dezeen-showroom/" target="_blank" rel="noopener">Tata bed by Bolzan</a></h2>
+                <p class='item-desc'>Dezeen Showroom: Italian furniture brand Bolzan celebrates fine tailoring with its cocooning Tata bed, which is entirely upholstered in leather. Designed in-house by Bolzan Lab, the Tata bed features a low, modern and slim-profiled wooden bed frame, neatly upholstered in finely stitched leather. Bot</p>
+                <span class="item-author">by Dezeen staff</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Art" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(327, 40%, 45%)">Newcity Art</span>
+                    <span class="item-date">3d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://art.newcity.com/2026/02/10/robert-schefmans-paintings-turn-realism-toward-existential-unease/" target="_blank" rel="noopener">Robert Schefman’s Paintings Turn Realism Toward Existential Unease</a></h2>
+                <p class='item-desc'>In the exhibition at David Klein Gallery in Ferndale, Michigan, the artist maintains his willed belief in the power of the illusionistic painted image.</p>
+                <span class="item-author">by K.A. Letts</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/denizen-works-house-onomichi-japan-setonai-islands_dezeen_2364_sq_16-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">3d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/10/denizen-works-house-onomichi/" target="_blank" rel="noopener">Denizen Works designs Japanese house with &quot;enigmatic quality&quot;</a></h2>
+                <p class='item-desc'>UK studio Denizen Works has exclusively revealed its first house in Japan, which features an almost entirely blank street-facing facade. Named House in Onomichi, the charred-timber-clad house was designed to take advantage of its coastal site in southwest Japan, which overlooks the sea and nearby is</p>
+                <span class="item-author">by Tom Ravenscroft</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/lishui-airport-mad-infrastructure-china_dezeen_2364_sq-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">3d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/10/mad-lishui-airport/" target="_blank" rel="noopener">MAD models Lishui Airport in China on &quot;mist-covered hills&quot;</a></h2>
+                <p class='item-desc'>Misty landscapes and birds in flight were visual references for this sculptural silver-white airport terminal, completed by Chinese studio MAD near the city of Lishui. Now officially open to passengers, Lishui Airport is nestled within a low mountain range 15 kilometres southwest of the city in the </p>
+                <span class="item-author">by Lizzie Crook</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/brutalist-southbank-centre-heritage-listed-sq2_dezeen_2364_col_0-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">3d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/10/brutalist-southbank-centre-heritage-listed/" target="_blank" rel="noopener">London&#x27;s brutalist Southbank Centre becomes Grade II-listed</a></h2>
+                <p class='item-desc'>The Southbank Centre in London, which includes the Hayward Gallery, Purcell Room, Queen Elizabeth Hall and Undercroft skatepark and was once voted &quot;Britain&#x27;s ugliest building&quot;, has been heritage listed. Completed along the River Thames in the 1960s, the post-war landmark has now been Grade II-listed</p>
+                <span class="item-author">by Starr Charles</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/sou-fujimoto-baccarat-residences-saadiyat-island-abu-dhabi_dezeen_2364_col_sq1-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">3d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/10/sou-fujimoto-baccarat-residences/" target="_blank" rel="noopener">Sou Fujimoto unveils first residential project in United Arab Emirates</a></h2>
+                <p class='item-desc'>Japanese architect Sou Fujimoto has revealed his first residential project in the UAE, the Baccarat Residences, which are set to be located next to Frank Gehry&#x27;s Guggenheim Abu Dhabi on Saadiyat Island. The renders depict two white high-rises with an undulating, organic design comprising staggered f</p>
+                <span class="item-author">by Cajsa Carlson</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/art-basel-qatar-sumayya-vally-installation-sq-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">3d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/10/sumayya-vally-assembly-of-lovers-art-basel-qatar-2026/" target="_blank" rel="noopener">Sumayya Vally creates modular forum for Art Basel Qatar based on Muslim gathering spaces</a></h2>
+                <p class='item-desc'>South African architect Sumayya Vally has designed a site-specific installation for the inaugural Art Basel Qatar fair in Doha, with moveable components that pay homage to lost communal spaces across the Islamic world. The installation, titled In the Assembly of Lovers, was informed by traditional s</p>
+                <span class="item-author">by Alyn Griffiths</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/Bangalore_sq1-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">3d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/10/shibanee-kamal-architects-bangalore-garden-design-video/" target="_blank" rel="noopener">&quot;If it can&#x27;t have a garden, we won&#x27;t do it&quot; says Shibanee &amp; Kamal Architects</a></h2>
+                <p class='item-desc'>Bangalore-based studio Shibanee &amp; Kamal Architects explains why gardens are central to how it designs housing projects in one of India&#x27;s most densely populated cities, in this exclusive video produced by Dezeen. Gardens form the starting point for the practice&#x27;s residential work, shaping everything </p>
+                <span class="item-author">by Sonia Singh</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/bangkok-design-week-thailand-exhibitions-installations_dezeen_1704_col_sq-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">3d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/10/bangkok-design-week/" target="_blank" rel="noopener">Seven shows celebrating Thai design at Bangkok Design Week</a></h2>
+                <p class='item-desc'>Described as the largest design festival in Southeast Asia, Bangkok Design Week returned for its ninth edition with 350 events across 140 venues throughout Thailand&#x27;s capital city. From a waterfall-like pavilion made with recycled fabric and a contemporary reinterpretation of traditional Thai crafts</p>
+                <span class="item-author">by Christina Yao</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/01/cbs_dezeen_2364_col_1-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">4d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/10/colebrook-bosson-saunders-lana-laptop/" target="_blank" rel="noopener">Colebrook Bosson Saunders&#x27; Lana laptop stand aims to support hybrid workers&#x27; wellbeing</a></h2>
+                <p class='item-desc'>Promotion: ergonomic design brand Colebrook Bosson Saunders has unveiled an adaptable laptop stand specially engineered for hybrid work. Lana is the international brand&#x27;s latest laptop stand, designed to meet the evolving needs of hybrid workers in flexible workspace environments. The stand is engin</p>
+                <span class="item-author">by Dezeen staff</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/bad-bunny_super-bowl_getty_dezeen_sq2-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">4d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/09/bad-bunny-super-bowl-lx-set-design-harriet-cuddeford-yellow-studio/" target="_blank" rel="noopener">Bad Bunny&#x27;s Super Bowl stage illustrates &quot;surreal journey&quot; through Puerto Rico</a></h2>
+                <p class='item-desc'>The celebratory, symbolic set design for Bad Bunny&#x27;s Super Bowl halftime show allowed the artist to &quot;make his comments in a way that felt elegant,&quot; according to its creative director Harriet Cuddeford. Puerto Rican artist Bad Bunny, whose real name is Benito Antonio Martínez Ocasio, headlined the sh</p>
+                <span class="item-author">by Dan Howarth</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/studio-84-inner-stage-unno-gallery-mexico-city-art-week-2026-2_dezeen_2364_sq-1-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">4d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/09/studio-84-unno-gallery-escuela-del-ballet-folklorico-de-mexico/" target="_blank" rel="noopener">Studio 84 exhibits furniture onstage at Escuela del Ballet Folklórico de México</a></h2>
+                <p class='item-desc'>Mexican design gallery Studio 84 and Unno Gallery have presented Inner Stage, a collection of works by designers including Sabine Marcelis and glassworks studio 6AM, at a local ballet theatre for Mexico City art week 2026. For the Inner Stage presentation, rugs, lighting elements, screens, and other</p>
+                <span class="item-author">by Ellen Eberhardt</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/kelly-wearstler-kappo-kappo-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">4d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/09/kelly-wearstler-kappo-kappo-japanese-restaurant-austin-proper-hotel/" target="_blank" rel="noopener">Kelly Wearstler wants diners to &quot;feel completely present&quot; at low-lit fusion restaurant</a></h2>
+                <p class='item-desc'>&quot;Intimacy was non-negotiable&quot; for Kelly Wearstler when interior designing Kappo Kappo, a charred-wood-clad French and Japanese restaurant at the Austin Proper Hotel in Texas. Kappo Kappo is a single-room, 25-cover restaurant at the Austin Proper Hotel, which features interiors by Los Angeles-based W</p>
+                <span class="item-author">by Jane Englefield</span>
+            </div>
+        </article>
+        <article class="item" data-source="Dezeen" data-category="Design">
+            <div class="item-image"><img src="http://static.dezeen.com/uploads/2026/02/form-portfolios-dansk-acquisition_dezeen_2364_col_sq-411x411.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(4, 40%, 45%)">Dezeen</span>
+                    <span class="item-date">4d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://www.dezeen.com/2026/02/09/form-portfolios-acquires-lifestyle-brand-dansk/" target="_blank" rel="noopener">Form Portfolios acquires lifestyle brand Dansk</a></h2>
+                <p class='item-desc'>Design company Form Portfolios has acquired Dansk, the homewares brand co-founded by Danish modernist Jens Quistgaard, and plans to &quot;carry forward everything Dansk represents&quot;. Dansk, which is often credited with introducing Scandinavian style to the US in the 1950s, is known for products such as it</p>
+                <span class="item-author">by Cajsa Carlson</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Art" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(327, 40%, 45%)">Newcity Art</span>
+                    <span class="item-date">4d ago</span>
+                </div>
+                <h2 class="item-title"><a href="https://art.newcity.com/2026/02/09/woman-made-gallerys-the-uncivil-canvas-art-in-the-age-of-discord-show-pushes-back/" target="_blank" rel="noopener">Woman Made Gallery’s “The Uncivil Canvas” Show Pushes Back on the Moment</a></h2>
+                <p class='item-desc'>Karen M. Gutfreund curates this group show featuring thirty-four artists exploring themes of domestic violence, immigration, bodily autonomy and racism.</p>
+                <span class="item-author">by Elisa Shoenberger</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Art" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(327, 40%, 45%)">Newcity Art</span>
+                    <span class="item-date">Feb 06, 2026</span>
+                </div>
+                <h2 class="item-title"><a href="https://art.newcity.com/2026/02/06/mocp-celebrates-fifty-years-of-photography-in-collecting-through-the-decades/" target="_blank" rel="noopener">MoCP Celebrates Fifty Years of Photography in “Collecting Through the Decades”</a></h2>
+                <p class='item-desc'>The exhibition, arranged by decades, takes viewers through MoCP&#x27;s collection that was built over half a century. Here’s to another fifty years of brilliant collecting, exhibitions and programming.</p>
+                <span class="item-author">by Susan Aurinko</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Design" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(129, 40%, 45%)">Newcity Design</span>
+                    <span class="item-date">Feb 06, 2026</span>
+                </div>
+                <h2 class="item-title"><a href="https://design.newcity.com/2026/02/06/the-world-according-to-goff-exploring-the-everyday-obsessions-of-historys-most-fantastical-and-far-out-architect/" target="_blank" rel="noopener">The World According to Goff: Exploring the Everyday Obsessions of History’s Most Fantastical and Far-Out Architect</a></h2>
+                <p class='item-desc'>Bruce Alonzo Goff is one of the great architects of the twentieth century. And yet. Goff still is not as well-known as he should be, is not immediately recognized outside of architectural or design circles, nor is he easily fixed within the pantheon of American architects, including Wright, Louis Su</p>
+                <span class="item-author">by Alison Cuddy</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Art" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(327, 40%, 45%)">Newcity Art</span>
+                    <span class="item-date">Feb 05, 2026</span>
+                </div>
+                <h2 class="item-title"><a href="https://art.newcity.com/2026/02/05/yoonshin-park-opens-up-the-books-for-participation-at-hyde-park-art-center/" target="_blank" rel="noopener">Yoonshin Park Opens up the Books for Participation at Hyde Park Art Center</a></h2>
+                <p class='item-desc'>The artist&#x27;s solo exhibition transforms paper, sound and process into an open-ended reading experience.</p>
+                <span class="item-author">by Samuel Schwindt</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Art" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(327, 40%, 45%)">Newcity Art</span>
+                    <span class="item-date">Feb 04, 2026</span>
+                </div>
+                <h2 class="item-title"><a href="https://art.newcity.com/2026/02/04/persistence-of-memory-zsofia-otvos-the-bears-makeup-artist-paints-like-a-weaver/" target="_blank" rel="noopener">Persistence of Memory: Zsofia Ötvös, “The Bear”’s Makeup Artist, Paints Like a Weaver</a></h2>
+                <p class='item-desc'>Her solo exhibition, “People,” opening February 7, traces milestones in her career as a visual artist—from multimedia drawings of Irma May, a semi-autobiographical character, to large-scale acrylic and oil paintings of briefly encountered strangers that explore the fragility of memory.</p>
+                <span class="item-author">by Paulina Marinkovic</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Art" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(327, 40%, 45%)">Newcity Art</span>
+                    <span class="item-date">Feb 03, 2026</span>
+                </div>
+                <h2 class="item-title"><a href="https://art.newcity.com/2026/02/03/collin-leitch-frames-nature-through-the-machine-in-the-darling-maneuver/" target="_blank" rel="noopener">Collin Leitch Frames Nature Through the Machine in “The Darling Maneuver”</a></h2>
+                <p class='item-desc'>Twelve Ten Gallery opens its new space with an austere exhibition that borrows heavily from film and coding.</p>
+                <span class="item-author">by Jefferson Godard</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Art" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(327, 40%, 45%)">Newcity Art</span>
+                    <span class="item-date">Feb 02, 2026</span>
+                </div>
+                <h2 class="item-title"><a href="https://art.newcity.com/2026/02/02/herman-aguirre-shouts-the-sorrow-of-stagnant-time/" target="_blank" rel="noopener">Herman Aguirre Shouts the Sorrow of Stagnant Time</a></h2>
+                <p class='item-desc'>At Zolla/Lieberman Gallery, the artist&#x27;s latest works have turned inward, choosing a detailed creative process of ink on paper.</p>
+                <span class="item-author">by Lucas Gomez-Doyle</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Design" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(129, 40%, 45%)">Newcity Design</span>
+                    <span class="item-date">Jan 30, 2026</span>
+                </div>
+                <h2 class="item-title"><a href="https://design.newcity.com/2026/01/30/design-top-5-february-march-2026/" target="_blank" rel="noopener">Design Top 5: February/March 2026</a></h2>
+                <p class='item-desc'>Design-forward things to see, do and shop.</p>
+                <span class="item-author">by Vasia Rigou</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Jan 26, 2026</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/the-rise-of-skateboard-deck-art-as-a-collectible-medium" target="_blank" rel="noopener">The Rise of Skateboard Deck Art as a Collectible Medium</a></h2>
+                <p class='item-desc'>Skateboard deck art has evolved beyond its origins, emerging as a deliberate artistic format that bridges culture and contemporary collecting. This essay explores how material, structure, and presentation shape its place within serious interiors and collections.More</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Design" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(129, 40%, 45%)">Newcity Design</span>
+                    <span class="item-date">Jan 23, 2026</span>
+                </div>
+                <h2 class="item-title"><a href="https://design.newcity.com/2026/01/23/mood-lighting/" target="_blank" rel="noopener">Mood: Lighting</a></h2>
+                <p class='item-desc'>Beautiful light fixtures to illuminate the short winter days.</p>
+                <span class="item-author">by Vasia Rigou</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Jan 22, 2026</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/meet-sandra-chevrier-the-contemporary-artist-redefining-collage-canvas-art" target="_blank" rel="noopener">Meet Sandra Chevrier: The Contemporary Artist Redefining Collage Canvas Art</a></h2>
+                <p class='item-desc'>Sandra Chevrier creates layered collage works that examine identity, constraint, and the expectations placed on women in contemporary society. This article explores her materials, process, and the ideas that shape her practice.More</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Jan 16, 2026</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/15-contemporary-artists-redefining-assemblage-artwork" target="_blank" rel="noopener">15 Contemporary Artists Redefining Assemblage Artwork</a></h2>
+                <p class='item-desc'>Assemblage art brings together found objects, materials, and imagery to create layered works rich in meaning and process. This article highlights contemporary artists who are redefining assemblage through material experimentation and personal narrative.
+ More</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Design" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(129, 40%, 45%)">Newcity Design</span>
+                    <span class="item-date">Jan 16, 2026</span>
+                </div>
+                <h2 class="item-title"><a href="https://design.newcity.com/2026/01/16/souvenirs-from-a-climate-changed-chicago/" target="_blank" rel="noopener">Souvenirs From a Climate-Changed Chicago</a></h2>
+                <p class='item-desc'>Parsons &amp; Charlesworth turn Chicago’s ecological future into speculative souvenirs at the Chicago Architecture Biennial.</p>
+                <span class="item-author">by Vasia Rigou</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Jan 10, 2026</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/creating-your-own-puzzle-an-interview-with-artist-meredith-maher" target="_blank" rel="noopener">Creating Your Own Puzzle: An Interview with Artist Meredith Maher</a></h2>
+                <p class='item-desc'>Meredith Maher discusses her creative process, material choices, and the personal logic behind her work in this interview. The conversation explores how she builds meaning through experimentation, structure, and self-directed exploration.More</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Design" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(129, 40%, 45%)">Newcity Design</span>
+                    <span class="item-date">Jan 09, 2026</span>
+                </div>
+                <h2 class="item-title"><a href="https://design.newcity.com/2026/01/09/designing-identity-the-costumes-of-paul-tazewell/" target="_blank" rel="noopener">Designing Identity: The Costumes of Paul Tazewell</a></h2>
+                <p class='item-desc'>Inside the creative process of a Tony- and Emmy-winning costume designer.</p>
+                <span class="item-author">by Vasia Rigou</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Design" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(129, 40%, 45%)">Newcity Design</span>
+                    <span class="item-date">Jan 02, 2026</span>
+                </div>
+                <h2 class="item-title"><a href="https://design.newcity.com/2026/01/02/design-top-5-january-2026/" target="_blank" rel="noopener">Design Top 5: January 2026</a></h2>
+                <p class='item-desc'>A design-filled start to your year.</p>
+                <span class="item-author">by Vasia Rigou</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Design" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(129, 40%, 45%)">Newcity Design</span>
+                    <span class="item-date">Dec 19, 2025</span>
+                </div>
+                <h2 class="item-title"><a href="https://design.newcity.com/2025/12/19/mood-design-gifts/" target="_blank" rel="noopener">Mood: Design Gifts</a></h2>
+                <p class='item-desc'>A gift guide for the design enthusiasts in your life.</p>
+                <span class="item-author">by Vasia Rigou</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Design" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(129, 40%, 45%)">Newcity Design</span>
+                    <span class="item-date">Dec 12, 2025</span>
+                </div>
+                <h2 class="item-title"><a href="https://design.newcity.com/2025/12/12/redefining-masculinity-through-fashion-how-anastasia-elektras-sculptural-menswear-turns-vulnerability-into-strength/" target="_blank" rel="noopener">Redefining Masculinity Through Fashion: How Anastasia Elektra’s Sculptural Menswear Turns Vulnerability Into Strength</a></h2>
+                <p class='item-desc'>How Anastasia Elektra’s sculptural menswear turns vulnerability into strength.</p>
+                <span class="item-author">by Vasia Rigou</span>
+            </div>
+        </article>
+        <article class="item" data-source="Newcity Design" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(129, 40%, 45%)">Newcity Design</span>
+                    <span class="item-date">Dec 05, 2025</span>
+                </div>
+                <h2 class="item-title"><a href="https://design.newcity.com/2025/12/05/design-top-5-december-2025/" target="_blank" rel="noopener">Design Top 5: December 2025</a></h2>
+                <p class='item-desc'>From immersive experiences to architectural retrospectives, December wraps the year in design.</p>
+                <span class="item-author">by Vasia Rigou</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Oct 23, 2025</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/local-artist-jenny-vyas-collaborates-with-chicago-athletic-association-hotel-for-one-night-only-exhibition" target="_blank" rel="noopener">Local Artist Jenny Vyas Collaborates with Chicago Athletic Association Hotel for One-Night-Only Exhibition</a></h2>
+                <p class='item-desc'>On November 7th, the grand ballroom of the Chicago Athletic Association Hotel will take on a new form as it becomes the setting for Rupture, a one-night-only exhibition by Chicago artist Jenny Vyas. The space, known for its sweeping views of Millennium Park and timeless Venetian Gothic design, will </p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Oct 07, 2025</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/meet-christopher-hynes-the-artist-redefining-automotive-art" target="_blank" rel="noopener">Meet Christopher Hynes: The Artist Redefining Automotive Art</a></h2>
+                <p class='item-desc'>A junkyard: a place where the world’s forgotten machines are left to rust and fade. But in the eyes of Arkansas based artist Christopher Hynes, these discarded fragments of steel and wire are viewed beyond waste, they present opportunity. What others overlook, he sees as the foundation for something</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Aug 08, 2025</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/after-4-years-roger-j-carter-s-long-awaited-solo-show-arrives" target="_blank" rel="noopener">After 4 Years, Roger J. Carter’s Long-Awaited Solo Show Arrives</a></h2>
+                <p class='item-desc'>Editor’s note: This article documents Roger J. Carter’s long-awaited solo exhibition. For a current overview of his artistic practice and available works, read our updated feature.
+ 
+ 
+In 2020, Roger J. Carter set out to create a body of work that was deeply personal and unapologetically political a</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Aug 03, 2025</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/meet-debbie-smyth-the-string-artist-mapping-emotion-one-pin-at-a-time" target="_blank" rel="noopener">Meet Debbie Smyth: The String Artist Mapping Emotion One Pin at a Time</a></h2>
+                <p class='item-desc'>Step into any space touched by Debbie Smyth and you’ll feel an immediate shift. The U.K.based artist doesn&#x27;t work with your standard brush and pigment. Instead, she constructs entire worlds using industrial pins and taut thread, transforming empty walls into vivid, immersive narratives.
+
+Debbie has </p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Jul 19, 2025</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/two-remarkable-abstract-artists-join-forces-for-new-chicago-exhibition-titled-pareidolia" target="_blank" rel="noopener">Two Remarkable Abstract Artists Join Forces for New Chicago Exhibition Titled “Pareidolia”</a></h2>
+                <p class='item-desc'>Earlier this month, a compelling new exhibition opened in downtown Chicago, spotlighting two emerging talents in the abstract art market. Rooted in urban contemporary themes, the showcase explores the psychological phenomenon of pareidolia, which is the human tendency to perceive meaningful patterns</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">May 21, 2025</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/meet-gonzalo-pizarro-the-innovative-mastermind-using-osb-board-to-make-art" target="_blank" rel="noopener">Meet Gonzalo Pizarro: The Innovative Mastermind Using OSB Board To Make Art</a></h2>
+                <p class='item-desc'>When you walk into an art gallery or museum, your mind subconsciously catalogs everything that you view. Unique pieces that fit your personal taste can heighten your senses, while genres of artwork you’ve seen many times before may have the opposite effect. But when you come upon a piece that’s crea</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artisanal Metals" data-category="Art">
+            <div class="item-image"><img src="https://artisanalmetals.com/wp-content/uploads/2025/05/ebony-2024.webp" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(212, 40%, 45%)">Artisanal Metals</span>
+                    <span class="item-date">May 05, 2025</span>
+                </div>
+                <h2 class="item-title"><a href="https://artisanalmetals.com/2025/05/05/from-dakar-to-venice-the-postcolonial-art-journey-of-modou-dieng-yacine/" target="_blank" rel="noopener">From Dakar to Venice: The Postcolonial Art Journey of Modou Dieng Yacine</a></h2>
+                <p class='item-desc'>Early Life and Education Modou Dieng Yacine’s artistic trajectory begins in Saint-Louis, Senegal, where he was born in 1970. In his youth, Yacine moved to the capital city Dakar and immersed himself in its burgeoning street culture of hip hop, graffiti, and murals, discovering new modes of Black exp</p>
+                <span class="item-author">by IronBarb</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artisanal Metals" data-category="Art">
+            <div class="item-image"><img src="https://artisanalmetals.com/wp-content/uploads/2025/04/screenshot-2025-04-05-at-12.02.16e280afpm.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(212, 40%, 45%)">Artisanal Metals</span>
+                    <span class="item-date">Apr 05, 2025</span>
+                </div>
+                <h2 class="item-title"><a href="https://artisanalmetals.com/2025/04/05/discover-zach-webers-sculptural-journey-at-blackpuffin/" target="_blank" rel="noopener">Discover Zach Weber’s Sculptural Journey at Blackpuffin</a></h2>
+                <p class='item-desc'>Art lovers in Chicago have a treat coming their way. A solo presentation by Zach Weber, curated by Ayrika Hall, will be on display from April 5 to April 27, 2025, at 600 W Van Buren Street, Chicago. This exhibition, “Outside High and Low,” promises a unique blend of sculpture and installation art th</p>
+                <span class="item-author">by IronBarb</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Apr 05, 2025</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/chicago-art-gallery-collaborates-with-top-local-comedians-for-a-unique-exhibition" target="_blank" rel="noopener">CHICAGO ART GALLERY COLLABORATES WITH TOP LOCAL COMEDIANS FOR A UNIQUE EXHIBITION</a></h2>
+                <p class='item-desc'>Two art forms will merge together on April 19th, in an event titled “DON’T TOUCH THE COMEDIANS.” Part comedy show, part art exhibition, attendees will get to experience live stand-up comedy from some of the best local comedians the city of Chicago has to offer. To coincide with the comedic performan</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Mar 27, 2025</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/5-new-chicago-art-galleries-to-see-work-from-local-artists" target="_blank" rel="noopener">5 NEW CHICAGO ART GALLERIES TO SEE WORK FROM LOCAL ARTISTS</a></h2>
+                <p class='item-desc'>Photo provided by VSG Contemporary
+Spanning the past three years a shift has occurred within the Chicago art gallery scene. A few long standing locations have shut their doors, while others have downsized, taking on a new direction. Amidst these transitions a group of eager young art dealers have em</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Feb 05, 2025</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/11-female-artists-will-be-featured-in-a-new-art-exhibition-downtown-chicago" target="_blank" rel="noopener">11 Female Artists Will Be Featured In A New Art Exhibition, Downtown Chicago</a></h2>
+                <p class='item-desc'>During the month of February a curated group of female artists will be featured in an upcoming exhibition titled “IN HER EYES.” Located off of Michigan Ave, in downtown Chicago, the show will feature both local and internationally recognized talents. Displayed artwork will highlight multiple differe</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artisanal Metals" data-category="Art">
+            <div class="item-image"><img src="https://artisanalmetals.com/wp-content/uploads/2025/02/tom-morandi-1985.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(212, 40%, 45%)">Artisanal Metals</span>
+                    <span class="item-date">Feb 05, 2025</span>
+                </div>
+                <h2 class="item-title"><a href="https://artisanalmetals.com/2025/02/04/interview-with-artist-tom-morandi/" target="_blank" rel="noopener">INTERVIEW WITH ARTIST TOM MORANDI</a></h2>
+                <p class='item-desc'>Tom Morandi is a distinguished American sculptor and educator whose work has significantly shaped Oregon’s public art landscape. After receiving his early education at Indiana State Teachers College (now Indiana University of Pennsylvania), he earned his MFA in sculpture from Ohio University. In the</p>
+                <span class="item-author">by MakersMood</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Jan 11, 2025</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/12-mexican-artists-to-look-out-for-in-2025" target="_blank" rel="noopener">12 Mexican Artists To Look Out For This Year</a></h2>
+                <p class='item-desc'>This article highlights twelve Mexican artists whose work is gaining attention for its material depth, cultural perspective, and contemporary relevance. Spanning a range of practices, the list offers a snapshot of voices shaping the current moment in Mexican art.More</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Dec 29, 2024</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/20-chicago-artists-you-should-know-in-2024" target="_blank" rel="noopener">20 Chicago Artists You Should Know In 2025</a></h2>
+                <p class='item-desc'>A curated list of 20 Chicago artists shaping contemporary art today. From emerging voices to established practices, this editorial highlights artists influencing the city’s creative direction.More</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Aug 03, 2024</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/meet-sculpture-artist-federico-uribe-transforming-violence-into-beauty-with-bullets" target="_blank" rel="noopener">Meet Sculpture Artist, Federico Uribe - Transforming Violence into Beauty with Bullets</a></h2>
+                <p class='item-desc'>Federico Uribe is known for transforming everyday objects into intricate compositions that challenge perception and material value. This article explores his process, materials, and the ideas behind his meticulously constructed works.More</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artisanal Metals" data-category="Art">
+            <div class="item-image"><img src="https://artisanalmetals.com/wp-content/uploads/2024/07/cloud-gate-1.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(212, 40%, 45%)">Artisanal Metals</span>
+                    <span class="item-date">Jul 30, 2024</span>
+                </div>
+                <h2 class="item-title"><a href="https://artisanalmetals.com/2024/07/30/chicagos-best-public-art-pieces/" target="_blank" rel="noopener">Chicago’s Best Public Art Pieces.</a></h2>
+                <p class='item-desc'>Chicago is home to some of the most iconic public art pieces in the world.  From huge sculptures to interactive installations, the city&#x27;s art scene stands out. Here, we round up some standout pieces that you should not miss.</p>
+                <span class="item-author">by MakersMood</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artisanal Metals" data-category="Art">
+            <div class="item-image"><img src="https://artisanalmetals.com/wp-content/uploads/2024/07/oscar.webp" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(212, 40%, 45%)">Artisanal Metals</span>
+                    <span class="item-date">Jul 20, 2024</span>
+                </div>
+                <h2 class="item-title"><a href="https://artisanalmetals.com/2024/07/20/as-the-art-fabrication-landscape-evolves-with-major-players-like-uap-and-polich-tallix-merging-into-formidable-super-companies-the-question-arises-what-does-this-mean-for-artists-seeking-creative-pa/" target="_blank" rel="noopener">As the art fabrication landscape evolves with major players like UAP and Polich Tallix merging into formidable super companies, the question arises: what does this mean for artists seeking creative partnerships?</a></h2>
+                <p class='item-desc'>While larger firms offer impressive resources, smaller studios provide unique advantages that can enhance the artistic process. This article explores the benefits of collaborating with independent fabricators, shares inspiring case studies, and highlights why supporting these smaller entities is cru</p>
+                <span class="item-author">by IronBarb</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Jul 17, 2024</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/opening-this-month-an-art-exhibition-inspired-by-techchicago-week" target="_blank" rel="noopener">Opening This Month: An Art Exhibition Inspired by TechChicago Week</a></h2>
+                <p class='item-desc'>Since 2021, TechChicago Week has developed a growing ecosystem of entrepreneurs, investors, and tech inspired patrons, all whom come together in celebration of new ideas and innovations. Over the past three years, TechChicago grew from an audience in the hundreds, to now thousands, with new events t</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artisanal Metals" data-category="Art">
+            <div class="item-image"><img src="https://artisanalmetals.com/wp-content/uploads/2024/07/screenshot-2024-06-27-at-6.06.14e280afpm.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(212, 40%, 45%)">Artisanal Metals</span>
+                    <span class="item-date">Jul 10, 2024</span>
+                </div>
+                <h2 class="item-title"><a href="https://artisanalmetals.com/2024/07/09/unveiling-natures-art-the-flight-of-butterflies-exhibit-at-peggy-notebaert-nature-museum/" target="_blank" rel="noopener">Unveiling Nature’s Art: The Flight of Butterflies Exhibit at Peggy Notebaert Nature Museum</a></h2>
+                <p class='item-desc'>Chicago will bloom this summer with an amazing outdoor art show. The Peggy Notebaert Nature Museum brings “Flight of Butterflies” to the city. This event places 29 big butterfly sculptures all over key spots, like the Magnificent Mile and many city parks. Art and Nature Together These sculptures are</p>
+                <span class="item-author">by MakersMood</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artisanal Metals" data-category="Art">
+            <div class="item-image"><img src="https://artisanalmetals.com/wp-content/uploads/2024/07/dsc02827.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(212, 40%, 45%)">Artisanal Metals</span>
+                    <span class="item-date">Jul 08, 2024</span>
+                </div>
+                <h2 class="item-title"><a href="https://artisanalmetals.com/2024/07/08/chilab-studio-transforms-ubers-chicago-office-with-innovative-design-and-craftsmanship/" target="_blank" rel="noopener">Uber’s Chicago Office Transforms with Innovative Design and Craftsmanship</a></h2>
+                <p class='item-desc'>When Uber decided to consolidate its brands under one roof in Chicago’s iconic Old Post Office, they sought to create a space that would not only accommodate their growing workforce but also inspire innovation and reflect their forward-thinking ethos. To help bring this vision to life, they turned t</p>
+                <span class="item-author">by MakersMood</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artisanal Metals" data-category="Art">
+            <div class="item-image"><img src="https://artisanalmetals.com/wp-content/uploads/2024/07/artisans2.jpeg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(212, 40%, 45%)">Artisanal Metals</span>
+                    <span class="item-date">Jul 08, 2024</span>
+                </div>
+                <h2 class="item-title"><a href="https://artisanalmetals.com/2024/07/08/the-unsung-heroes-of-contemporary-art-fabricators-in-the-spotlight/" target="_blank" rel="noopener">The Unsung Heroes of Contemporary Art: Fabricators in the Spotlight</a></h2>
+                <p class='item-desc'>In the realm of contemporary art, a transformation is underway. As artists increasingly step back from the physical creation of their work, a new group of professionals is emerging from the shadows: the fabricators. These skilled craftspeople, once relegated to the background, are now being recogniz</p>
+                <span class="item-author">by IronBarb</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artisanal Metals" data-category="Art">
+            <div class="item-image"><img src="https://artisanalmetals.com/wp-content/uploads/2024/06/bespoke-architectural-details.jpg" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(212, 40%, 45%)">Artisanal Metals</span>
+                    <span class="item-date">Jun 30, 2024</span>
+                </div>
+                <h2 class="item-title"><a href="https://artisanalmetals.com/2024/06/29/fine-art-fabrication-discovering-the-best-and-what-to-expect/" target="_blank" rel="noopener">Fine Art Fabrication: Discovering the Best and What to Expect</a></h2>
+                <p class='item-desc'>When looking for the best in fine art fabrication, there are several key aspects to consider. Fine art fabricators can bring an artist’s vision to life by using advanced techniques and materials. But what makes a fabricator the right choice for collaboration? What to Expect from Fine Art Fabricators</p>
+                <span class="item-author">by MakersMood</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">May 10, 2024</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/west-loop-restaurant-gino-marty-s-will-temporarily-transform-into-an-art-gallery-this-month" target="_blank" rel="noopener">West Loop Restaurant, Gino &amp; Marty’s, Will Temporarily  Transform Into an Art Gallery This Month</a></h2>
+                <p class='item-desc'>Nestled in the booming West Loop neighborhood, Gino &amp; Marty’s opened their doors in August of 2022 as an Italian restaurant on the main floor, with a speak easy venue on its upper level. Comprised of a team with decades of experience in both the hospitality and restaurant industry, the venue quickly</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Apr 05, 2024</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/jc-rivera-debuts-highly-anticipated-solo-show-forever-champ" target="_blank" rel="noopener">JC Rivera&#x27;s Highly Acclaimed Solo Show is Closing Soon - FOREVER CHAMP</a></h2>
+                <p class='item-desc'>Just over 15 years ago, JC Rivera began his artistic journey with a character known as the Bear Champ. A boxing bear with a grim facial expression began popping up in neighborhoods throughout the Chicagoland area. In the beginning, Rivera would surreptitiously paint the character without permission.</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Nov 01, 2023</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/jc-rivera-collaborates-with-barstool-sports-for-a-massive-new-mural-in-west-loop-chicago" target="_blank" rel="noopener">Jc Rivera Collaborates with Barstool Sports  For A Massive New Mural in West Loop, Chicago</a></h2>
+                <p class='item-desc'>Last week Chicago muralist, Jc Rivera, completed one of his largest murals inside the new location for Barstool Sports. The media giant, known for sports journalism mixed with pop culture in a humorous narrative, commissioned Rivera to paint a mural for a new indoor basketball court, located at Bars</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Oct 17, 2023</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/local-artist-jason-farley-opens-new-solo-show-at-downtown-chicago-art-gallery" target="_blank" rel="noopener">Local Artist Jason Farley Opens New Solo Show At Downtown Chicago Art Gallery</a></h2>
+                <p class='item-desc'>Emerging Chicago based artist, Jason Farley has spent the past year building a new collection of work featuring surrealistic portraitures infused with nature. Ideas for his series first came to fruition in the Summer of 2022. After experimenting with different designs, Farley changed the direction i</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Aug 11, 2023</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/on-view-in-august-ex-counterfeiter-turned-artist-exhibits-his-most-daring-collection-yet" target="_blank" rel="noopener">ON VIEW IN AUGUST: Ex-Counterfeiter Turned Artist Exhibits His Most Daring Collection Yet</a></h2>
+                <p class='item-desc'>Arthur J. Williams Jr, a South Side Chicagoan who defied the U.S. financial system for nearly a decade is exhibiting a collection of artwork in downtown Chicago this month. In a mesmerizing come back story, Williams learned to paint while serving a 12 year prison sentence. During his incarceration, </p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Jul 18, 2023</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/meet-eva-carlni-an-abstract-artist-with-a-unique-perspective" target="_blank" rel="noopener">MEET EVA CARLINI AND HER UNIQUE APPROACH TO THE ABSTRACT GENRE OF ART</a></h2>
+                <p class='item-desc'>An artist&#x27;s work that doesn&#x27;t evoke a single idea but a multitude of thoughts that can create a sense of mental freedom. Using unique color and texture combinations, many of the pieces today created by Italian artist Eva Carlini achieve this.More</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Jul 09, 2023</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/sofitel-in-gold-coast-chicago-gears-up-for-annual-event-featuring-a-dazzling-local-artist" target="_blank" rel="noopener">Sofitel in Gold Coast, Chicago Gears Up For Annual Event Featuring A Dazzling Local Artist</a></h2>
+                <p class='item-desc'>Each and every year the French boutique hotel, Sofitel Magnificent Mile, throws a celebration to commemorate Bastille Day. This French national holiday marks the storming of the Bastille, an old French prison, which was a major event of the French Revolution. Over the years, the event grew with the </p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">May 23, 2023</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/thompson-chicago-collaborates-with-artist-jenny-vyas-for-a-luxurious-new-exhibition" target="_blank" rel="noopener">Thompson Chicago Collaborates With Artist Jenny Vyas For A Luxurious New Exhibition</a></h2>
+                <p class='item-desc'>At the start of 2022, rapidly emerging artist Jenny Vyas collaborated with Thompson Chicago for a large procurement of print work, now featured in every room of the hotel. Since then, Vyas moved into a new studio space and completed a variety of new mural projects. With one such project amassing nea</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">May 11, 2023</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/prominent-chicago-muralist-collaborates-with-the-hinsdale-fire-department-for-a-stunning-new-display" target="_blank" rel="noopener">Prominent Chicago Muralist Collaborates With The Hinsdale Fire Department</a></h2>
+                <p class='item-desc'>Last week, Chicago muralist Rawooh completed a new collaboration with the Hinsdale Fire Department. Located in the building&#x27;s fitness center, this remembrance of those who&#x27;ve passed away in the line duty is privately on display for both the fire and police departments. A highly detailed firefighter,</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Apr 07, 2023</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/con-texure-art-exhibition-on-mag-mile-will-debut-three-stunning-artists-concurrently-with-expo-chicago" target="_blank" rel="noopener">CON-TEXURE Art Exhibition On Mag Mile Will Debut Three Stunning Artists Concurrently With Expo Chicago</a></h2>
+                <p class='item-desc'>Expo Chicago, one of the largest annually running art fairs, celebrates it&#x27;s 10th edition this year at Navy Pier with over 170 galleries - its largest showcase to date. The venue will welcome an array of exhibitors and creatives from all over the world. While this artistic conglomerate takes place, </p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Mar 28, 2023</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/10-chicago-artists-to-look-out-for-in-2020" target="_blank" rel="noopener">10 Chicago Artists To Look Out For In 2023</a></h2>
+                <p class='item-desc'>Last year a variety of Chicago artists pushed the boundaries within their individual styles. They didn’t just create better art, they made stronger business decisions. Due to having an amazing 2019, here’s a list of artists we feel will be having a powerful 2020. More</p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Artist Replete" data-category="Art">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(144, 40%, 45%)">Artist Replete</span>
+                    <span class="item-date">Mar 16, 2023</span>
+                </div>
+                <h2 class="item-title"><a href="https://artistreplete.com/blogs/blog/take-a-tour-of-the-newest-exhibition-downtown-chicago-featuring-all-local-talent" target="_blank" rel="noopener">Take A Tour Of The Newest Exhibition Downtown Chicago Featuring All Local Talent</a></h2>
+                <p class='item-desc'>On March 11th a show titled NOTHING IS AS IT SEEMS made its debut in the heart of downtown Chicago. Featuring only Chicago based talent, the show is a prime example of the brilliance of the creative community in the city. Participating artists include: Adonte Clark, Jason Farley, Jenny Vyas, Rawooh </p>
+                <span class="item-author">by Matthew Moore</span>
+            </div>
+        </article>
+        <article class="item" data-source="Blackpuffin" data-category="Art">
+            <div class="item-image"><img src="https://images.squarespace-cdn.com/content/v1/5a2604daa803bb3fc9fa9639/7de41643-3769-4b45-92f1-eccb0b6c2416/Silva_3.jpeg?format=1000w" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(220, 40%, 45%)">Blackpuffin</span>
+                    <span class="item-date">Jul 28, 2022</span>
+                </div>
+                <h2 class="item-title"><a href="https://blackpuffin.co/blog/2022/7/28/focus-dakar" target="_blank" rel="noopener">FOCUS: Dak’Art Biennale 2022</a></h2>
+                <p class='item-desc'>By Mack McFarland</p>
+                <span class="item-author">by blackpuffin</span>
+            </div>
+        </article>
+        <article class="item" data-source="Blackpuffin" data-category="Art">
+            <div class="item-image"><img src="https://images.squarespace-cdn.com/content/v1/5a2604daa803bb3fc9fa9639/1626380356950-RRQ3LM8UBGM28VY0Q62B/DM+Media+%26+BlackPuffin-35.jpg?format=1000w" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(220, 40%, 45%)">Blackpuffin</span>
+                    <span class="item-date">Aug 01, 2021</span>
+                </div>
+                <h2 class="item-title"><a href="https://blackpuffin.co/blog/on-art-within-the-city" target="_blank" rel="noopener">ON ART WITHIN THE CITY</a></h2>
+                <p class='item-desc'>By Dr. El Hadji Malick Ndiaye</p>
+                <span class="item-author">by blackpuffin</span>
+            </div>
+        </article>
+        <article class="item" data-source="Blackpuffin" data-category="Art">
+            <div class="item-image"><img src="https://images.squarespace-cdn.com/content/v1/5a2604daa803bb3fc9fa9639/1626807388969-JEJR0DHRJI8QYTGTFXPP/cry_exhibit.png?format=1000w" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(220, 40%, 45%)">Blackpuffin</span>
+                    <span class="item-date">Jul 22, 2021</span>
+                </div>
+                <h2 class="item-title"><a href="https://blackpuffin.co/blog/sister-cities-artist-modou-dieng-constructs-a-bridge-between-st-louis-and-saint-louis" target="_blank" rel="noopener">SISTER CITIES: ARTIST MODOU DIENG CONSTRUCTS A BRIDGE BETWEEN ST. LOUIS AND SAINT-LOUIS</a></h2>
+                <p class='item-desc'>By Rikki Byrd</p>
+                <span class="item-author">by blackpuffin</span>
+            </div>
+        </article>
+        <article class="item" data-source="Blackpuffin" data-category="Art">
+            <div class="item-image"><img src="https://images.squarespace-cdn.com/content/v1/5a2604daa803bb3fc9fa9639/1626820332362-1D4404YJQLEWL7BD2N8P/StLouis_Pages_042620_Part30.png?format=1000w" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(220, 40%, 45%)">Blackpuffin</span>
+                    <span class="item-date">Jul 22, 2021</span>
+                </div>
+                <h2 class="item-title"><a href="https://blackpuffin.co/blog/dakar-september-4-2019-a-bridge-over-the-atlantic" target="_blank" rel="noopener">DAKAR, SEPTEMBER 4, 2019 - A BRIDGE OVER THE ATLANTIC</a></h2>
+                <p class='item-desc'>By Sylvain Sankalé</p>
+                <span class="item-author">by blackpuffin</span>
+            </div>
+        </article>
+        <article class="item" data-source="Blackpuffin" data-category="Art">
+            <div class="item-image"><img src="https://images.squarespace-cdn.com/content/v1/5a2604daa803bb3fc9fa9639/1626648793635-T9QJPXOG7E5EYHC1ED16/Screen+Shot+2021-07-14+at+5.33.30+PM.png?format=1000w" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(220, 40%, 45%)">Blackpuffin</span>
+                    <span class="item-date">Jul 09, 2021</span>
+                </div>
+                <h2 class="item-title"><a href="https://blackpuffin.co/blog/2021/7/14/if-i-could-see-your-face" target="_blank" rel="noopener">IF I COULD SEE YOUR FACE</a></h2>
+                <p class='item-desc'>By Emmanuel Iduma</p>
+                <span class="item-author">by blackpuffin</span>
+            </div>
+        </article>
+        <article class="item" data-source="Blackpuffin" data-category="Art">
+            <div class="item-image"><img src="https://images.squarespace-cdn.com/content/v1/5a2604daa803bb3fc9fa9639/1626821349264-769HNL1C8KH8BEW9RRNO/Derrick-Adams_crop-1024x691.png?format=1000w" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(220, 40%, 45%)">Blackpuffin</span>
+                    <span class="item-date">Jul 09, 2021</span>
+                </div>
+                <h2 class="item-title"><a href="https://blackpuffin.co/blog/interview-with-for-freedoms-co-founder-eric-gottesman-amp-director-michelle-woo" target="_blank" rel="noopener">INTERVIEW WITH FOR FREEDOMS, CO-FOUNDER ERIC GOTTESMAN &amp; DIRECTOR MICHELLE WOO</a></h2>
+                <p class='item-desc'>By Devon Van Houten Maldonado</p>
+                <span class="item-author">by blackpuffin</span>
+            </div>
+        </article>
+        <article class="item" data-source="Blackpuffin" data-category="Art">
+            <div class="item-image"><img src="https://images.squarespace-cdn.com/content/v1/5a2604daa803bb3fc9fa9639/1626822047931-OCKD8HSEFLU1XTKS9WK3/KB_SelfPortrait_KB16-06-30ALocation36_003-large-v1b-11x11.jpg?format=1000w" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(220, 40%, 45%)">Blackpuffin</span>
+                    <span class="item-date">Jul 08, 2021</span>
+                </div>
+                <h2 class="item-title"><a href="https://blackpuffin.co/blog/2021/7/14/for-freedoms-kwame-brathwaite" target="_blank" rel="noopener">FOR FREEDOMS: KWAME BRATHWAITE</a></h2>
+                <p class='item-desc'>By Kwame S. Brathwaite</p>
+                <span class="item-author">by blackpuffin</span>
+            </div>
+        </article>
+        <article class="item" data-source="Blackpuffin" data-category="Art">
+            <div class="item-image"><img src="https://images.squarespace-cdn.com/content/v1/5a2604daa803bb3fc9fa9639/1626707727288-42E02QG8AHW0M5MG3N3Z/O3.jpg?format=1000w" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(220, 40%, 45%)">Blackpuffin</span>
+                    <span class="item-date">Jul 08, 2021</span>
+                </div>
+                <h2 class="item-title"><a href="https://blackpuffin.co/blog/2021/7/18/cut-amp-paste-oscar-murillo-and-modou-dieng-talk-about-the-nature-of-political-art" target="_blank" rel="noopener">CUT &amp; PASTE: OSCAR MURILLO AND MODOU DIENG TALK ABOUT THE NATURE OF POLITICAL ART</a></h2>
+                <p class='item-desc'>By Jeremy Goodwin</p>
+                <span class="item-author">by blackpuffin</span>
+            </div>
+        </article>
+        <article class="item" data-source="Blackpuffin" data-category="Art">
+            <div class="item-image"><img src="https://images.squarespace-cdn.com/content/v1/5a2604daa803bb3fc9fa9639/1626383931544-0AO23K689WOZ3OQXYPS7/Screen+Shot+2021-07-15+at+1.34.55+PM.png?format=1000w" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(220, 40%, 45%)">Blackpuffin</span>
+                    <span class="item-date">Jul 08, 2021</span>
+                </div>
+                <h2 class="item-title"><a href="https://blackpuffin.co/blog/how-we-endure-a-conversation-on-blackness-with-esmaa-mohamoud-rikki-byrd" target="_blank" rel="noopener">HOW WE ENDURE: A CONVERSATION ON BLACKNESS WITH ESMAA MOHAMOUD</a></h2>
+                <p class='item-desc'>By Rikki Byrd</p>
+                <span class="item-author">by blackpuffin</span>
+            </div>
+        </article>
+        <article class="item" data-source="Blackpuffin" data-category="Art">
+            <div class="item-image"><img src="https://images.squarespace-cdn.com/content/v1/5a2604daa803bb3fc9fa9639/1626647470165-SMP3SBVK06OCNQH7EQNE/npr.brightspotcdn.com.jpeg?format=1000w" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(220, 40%, 45%)">Blackpuffin</span>
+                    <span class="item-date">Jul 08, 2021</span>
+                </div>
+                <h2 class="item-title"><a href="https://blackpuffin.co/blog/oscar-murillo-and-modou-dieng-at-golden-hour-in-chelsea-new-york-edited-by-devon-van-houten-maldonado" target="_blank" rel="noopener">OSCAR MURILLO AND MODOU DIENG AT GOLDEN HOUR IN CHELSEA, NEW YORK</a></h2>
+                <p class='item-desc'>By Devon Van Houten Maldonado</p>
+                <span class="item-author">by blackpuffin</span>
+            </div>
+        </article>
+        <article class="item" data-source="Blackpuffin" data-category="Art">
+            <div class="item-image"><img src="https://images.squarespace-cdn.com/content/v1/5a2604daa803bb3fc9fa9639/1626822982416-0DRYHCONRT5G8XGXTJJE/Irving_Kahlil_Soul_Sitters%28StillStanding%29detail_45inx60x80_2017.png?format=1000w" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(220, 40%, 45%)">Blackpuffin</span>
+                    <span class="item-date">Jul 02, 2021</span>
+                </div>
+                <h2 class="item-title"><a href="https://blackpuffin.co/blog/extraction" target="_blank" rel="noopener">EXTRACTION</a></h2>
+                <p class='item-desc'>By Danielle A. Jackson</p>
+                <span class="item-author">by blackpuffin</span>
+            </div>
+        </article>
+        <article class="item" data-source="Blackpuffin" data-category="Art">
+            <div class="item-image"><img src="https://images.squarespace-cdn.com/content/v1/5a2604daa803bb3fc9fa9639/1626823099012-O7TAXXUNGWN3MGS8GOSK/Resting-Hank-Willis-Thomas.png?format=1000w" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(220, 40%, 45%)">Blackpuffin</span>
+                    <span class="item-date">Jul 01, 2021</span>
+                </div>
+                <h2 class="item-title"><a href="https://blackpuffin.co/blog/reflections-on-a-theme-transparency-shade-seeing-through-the-shadow" target="_blank" rel="noopener">REFLECTIONS ON A THEME: TRANSPARENCY SHADE: SEEING THROUGH THE SHADOW</a></h2>
+                <p class='item-desc'>By Charlotte Eyerman</p>
+                <span class="item-author">by blackpuffin</span>
+            </div>
+        </article>
+        <article class="item" data-source="Blackpuffin" data-category="Art">
+            <div class="item-image"><img src="https://images.squarespace-cdn.com/content/v1/5a2604daa803bb3fc9fa9639/1626733304311-QA7MFF4L273MMNE0P8CU/10-what-will-you-tell-them-2.jpg?format=1000w" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(220, 40%, 45%)">Blackpuffin</span>
+                    <span class="item-date">Jul 01, 2021</span>
+                </div>
+                <h2 class="item-title"><a href="https://blackpuffin.co/blog/an-international-exhibition-imagines-an-intersectional-future" target="_blank" rel="noopener">AN INTERNATIONAL EXHIBITION IMAGINES AN INTERSECTIONAL FUTURE</a></h2>
+                <p class='item-desc'>By Devon Van Houten Maldonado</p>
+                <span class="item-author">by blackpuffin</span>
+            </div>
+        </article>
+        <article class="item" data-source="Core77" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(2, 40%, 45%)">Core77</span>
+                    <span class="item-date"></span>
+                </div>
+                <h2 class="item-title"><a href="https://www.core77.com/posts/141287/Nendo-Founder-Oki-Satos-Comic-Strip-is-Hilarious" target="_blank" rel="noopener">Nendo Founder Oki Sato&#x27;s Comic Strip is Hilarious</a></h2>
+                <p class='item-desc'>A few months ago Oki Sato, founder of Nendo, started a comic strip (of sorts, on Instagram; you need to cli). While some of it is product-design-related content…
+
+…some are just funny product observations…
+
+…while others are just weirdly relatable stories about objects:
+Plenty more to see here.</p>
+                <span class="item-author">by Rain Noe</span>
+            </div>
+        </article>
+        <article class="item" data-source="Core77" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(2, 40%, 45%)">Core77</span>
+                    <span class="item-date"></span>
+                </div>
+                <h2 class="item-title"><a href="https://www.core77.com/posts/141255/Core77-Design-Awards-2026-Montana-Cherney-on-Designs-Ripple-Effects" target="_blank" rel="noopener">Core77 Design Awards 2026: Montana Cherney on Design&#x27;s Ripple Effects</a></h2>
+                <p class='item-desc'>Through her work across four continents, Montana Cherney has learned how design can support meaningful and lasting change. Not just through the solutions it creates, but through the capabilities it builds in others. As Innovation Coach at the International Baccalaureate, and through her work advanci</p>
+                <span class="item-author">by Core77 Design Awards</span>
+            </div>
+        </article>
+        <article class="item" data-source="Core77" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(2, 40%, 45%)">Core77</span>
+                    <span class="item-date"></span>
+                </div>
+                <h2 class="item-title"><a href="https://www.core77.com/posts/141270/An-Attractive-Functional-Furniture-Piece-for-Humans-and-Cats" target="_blank" rel="noopener">An Attractive, Functional Furniture Piece for Humans and Cats</a></h2>
+                <p class='item-desc'>As we saw here, if your cat damages your sofa, you can perform a kintsugi-style repair with embroidery. However, if you&#x27;d prefer to avoid the problem altogether, you could draw your cat away from the sofa with a scratching post. To prevent living room eyesores, cat furniture company Mau offers this </p>
+                <span class="item-author">by Rain Noe</span>
+            </div>
+        </article>
+        <article class="item" data-source="Core77" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(2, 40%, 45%)">Core77</span>
+                    <span class="item-date"></span>
+                </div>
+                <h2 class="item-title"><a href="https://www.core77.com/posts/141268/A-Smart-Production-Hack-for-Welding-a-Pegged-Grid" target="_blank" rel="noopener">A Smart Production Hack for Welding a Pegged Grid</a></h2>
+                <p class='item-desc'>German company Schweisstisch24 sells this D28 Tool Trolley, which targets their industrial welding clients. The beefy trolley, designed to hold clamps, squares and tools, has a load capacity of 240kg (529 lbs).Because the company knows a thing or two about welding, they&#x27;ve come up with a production </p>
+                <span class="item-author">by Rain Noe</span>
+            </div>
+        </article>
+        <article class="item" data-source="Core77" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(2, 40%, 45%)">Core77</span>
+                    <span class="item-date"></span>
+                </div>
+                <h2 class="item-title"><a href="https://www.core77.com/posts/141256/Using-Fusion-Apply-for-the-2026-Autodesk-Fusion-Prize" target="_blank" rel="noopener">Using Fusion? Apply for the 2026 Autodesk Fusion Prize</a></h2>
+                <p class='item-desc'>We&#x27;re excited to help the Autodesk Fusion announce the third annual Autodesk Fusion Prize as part of the 2026 Core77 Design Awards. This award recognizes the most outstanding project that utilized Autodesk Fusion product development software from all entries in this year&#x27;s awards program – student a</p>
+                <span class="item-author">by Core77 Design Awards</span>
+            </div>
+        </article>
+        <article class="item" data-source="Core77" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(2, 40%, 45%)">Core77</span>
+                    <span class="item-date"></span>
+                </div>
+                <h2 class="item-title"><a href="https://www.core77.com/posts/141247/Ronan-Bouroullecs-Cast-Iron-Trivet-Necklace" target="_blank" rel="noopener">Ronan Bouroullec&#x27;s Cast Iron Trivet Necklace</a></h2>
+                <p class='item-desc'>This Trivet Necklace is by Ronan Bouroullec.  It&#x27;s made of cast iron, but possesses a form that would have been unimaginable in cast iron&#x27;s heyday, containing twenty spheres around its perimeter; the object&#x27;s name is perhaps a wink at pearl necklaces. The trivet was designed for the Everyday Objects</p>
+                <span class="item-author">by Rain Noe</span>
+            </div>
+        </article>
+        <article class="item" data-source="Core77" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(2, 40%, 45%)">Core77</span>
+                    <span class="item-date"></span>
+                </div>
+                <h2 class="item-title"><a href="https://www.core77.com/posts/141246/Footwear-Startup-Aims-to-Produce-Injury-Reducing-Sneakers" target="_blank" rel="noopener">Footwear Startup Aims to Produce Injury-Reducing Sneakers</a></h2>
+                <p class='item-desc'>A startup called Pines Footwear aims to produce a new type of sneaker: One that provides a &quot;foot-healthy,&quot; minimalist kick that can deliver on-court performance without the excessive foam that can lead to injuries.  &quot;Basketball shoes in the 90s were these big honking foam blocks,&quot; says company co-fo</p>
+                <span class="item-author">by Rain Noe</span>
+            </div>
+        </article>
+        <article class="item" data-source="Core77" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(2, 40%, 45%)">Core77</span>
+                    <span class="item-date"></span>
+                </div>
+                <h2 class="item-title"><a href="https://www.core77.com/posts/141245/Remedial-Design-Apple-TVs-I-Couldnt-Hear-the-Dialogue-Feature" target="_blank" rel="noopener">Remedial Design: Apple TV&#x27;s &quot;I Couldn&#x27;t Hear the Dialogue&quot; Feature</a></h2>
+                <p class='item-desc'>In recent years, as movie and TV video quality has improved, the audio quality has gotten worse. Surveys show that people increasingly watch their programming with the subtitles on, citing muddled audio quality. One cause is that modern sound is often mixed for cinema-quality audio systems, rather t</p>
+                <span class="item-author">by Rain Noe</span>
+            </div>
+        </article>
+        <article class="item" data-source="Core77" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(2, 40%, 45%)">Core77</span>
+                    <span class="item-date"></span>
+                </div>
+                <h2 class="item-title"><a href="https://www.core77.com/posts/141212/A-Clever-Low-Tech-No-Robots-Design-for-a-Passive-Tennis-Partner" target="_blank" rel="noopener">A Clever, Low-Tech, No-Robots Design for a Passive Tennis Partner</a></h2>
+                <p class='item-desc'>A clever inventor named Ulpan Dimas invented this CourtSense Tennis Rebounder.Unlike the ball-volleying robots now on the market, Dimas&#x27; low-tech invention requires no electricity and no tennis court:Dimas sells the CourtSense for $295 on eBay (plus shipping, and be aware that Dimas is in Indonesia)</p>
+                <span class="item-author">by Rain Noe</span>
+            </div>
+        </article>
+        <article class="item" data-source="Core77" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(2, 40%, 45%)">Core77</span>
+                    <span class="item-date"></span>
+                </div>
+                <h2 class="item-title"><a href="https://www.core77.com/posts/141210/Good-Low-Tech-Design-This-Vet-Care-Meds-Chart" target="_blank" rel="noopener">Good Low-Tech Design: This Vet Care Meds Chart</a></h2>
+                <p class='item-desc'>Recently I had to take my dog in for surgery. Over nearly 20 years of owning multiple dogs, this isn&#x27;t new. But this is the first time design actually played a helpful role for my pet&#x27;s post-op care.At every other veterinary practice I&#x27;ve been to—over a half-dozen, from Manhattan to the rural countr</p>
+                <span class="item-author">by Rain Noe</span>
+            </div>
+        </article>
+        <article class="item" data-source="Core77" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(2, 40%, 45%)">Core77</span>
+                    <span class="item-date"></span>
+                </div>
+                <h2 class="item-title"><a href="https://www.core77.com/posts/141208/Next-Gen-Composite-Materials-Using-Flax-Rather-than-Carbon-Fiber" target="_blank" rel="noopener">Next-Gen Composite Materials: Using Flax Rather than Carbon Fiber</a></h2>
+                <p class='item-desc'>For centuries, human beings have added strands of material to other materials in order to strengthen them. In the Middle Ages, workers discovered that adding horsehair to lime plaster prevented it from cracking. The strands of hair, taken from a horse&#x27;s mane or tail, act like a miniature version of </p>
+                <span class="item-author">by Rain Noe</span>
+            </div>
+        </article>
+        <article class="item" data-source="Core77" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(2, 40%, 45%)">Core77</span>
+                    <span class="item-date"></span>
+                </div>
+                <h2 class="item-title"><a href="https://www.core77.com/posts/141071/Core77-Weekly-Roundup-2-2-26-to-2-6-26" target="_blank" rel="noopener">Core77 Weekly Roundup (2-2-26 to 2-6-26)</a></h2>
+                <p class='item-desc'>Here&#x27;s what we looked at this week: Issey Miyake&#x27;s Eye Clip: A bizarre fashion item for making your clothes fit better.Design details: Trusco&#x27;s TEX-266A, designed for power users, improves the UX on a tape dispenser.Remedial design: Three solutions for accessing power outlets behind furniture.The Of</p>
+                <span class="item-author">by Rain Noe</span>
+            </div>
+        </article>
+        <article class="item" data-source="Core77" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(2, 40%, 45%)">Core77</span>
+                    <span class="item-date"></span>
+                </div>
+                <h2 class="item-title"><a href="https://www.core77.com/posts/141180/Industrial-Design-Case-Study-Nihaarika-Aroras-Jewelry-Stand-for-the-MoMA-Design-Store" target="_blank" rel="noopener">Industrial Design Case Study: Nihaarika Arora&#x27;s Jewelry Stand for the MoMA Design Store</a></h2>
+                <p class='item-desc'>Nihaarika Arora is an industrial designer and design lead working across consumer product categories, with an ongoing exploration of form, structure, and everyday utility. One project that exemplifies this approach is the Modern Geometry Jewelry Stand, designed exclusively for the MoMA Design Store </p>
+                <span class="item-author">by Rain Noe</span>
+            </div>
+        </article>
+        <article class="item" data-source="Core77" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(2, 40%, 45%)">Core77</span>
+                    <span class="item-date"></span>
+                </div>
+                <h2 class="item-title"><a href="https://www.core77.com/posts/141179/" target="_blank" rel="noopener">&amp;nbsp;Multi-Level Granny Cart Provides Way Better UX</a></h2>
+                <p class='item-desc'>This brilliant take on the granny cart is by inventor Michelle Hildebrand, with an assist by Australian ID firm Clandestine Design Group. Brisbane-based Hildbebrand came up with the idea after observing that farmer&#x27;s markets can be difficult to shop at with conventional bags or granny carts. The res</p>
+                <span class="item-author">by Rain Noe</span>
+            </div>
+        </article>
+        <article class="item" data-source="Core77" data-category="Design">
+            
+            <div class="item-content">
+                <div class="item-meta">
+                    <span class="item-source" style="color: hsl(2, 40%, 45%)">Core77</span>
+                    <span class="item-date"></span>
+                </div>
+                <h2 class="item-title"><a href="https://www.core77.com/posts/141147/Industrial-Design-Student-Work-Making-Existing-Bistro-Chairs-More-Comfortable" target="_blank" rel="noopener">Industrial Design Student Work: Making Existing Bistro Chairs More Comfortable</a></h2>
+                <p class='item-desc'>This Vano project is by Clara Uzunovic, done as an Industrial Design student at ECAL.&quot;For this project, the students had to design a seat, or rather requalify, rehabilitate, and redesign a chair or armchair using existing models such as the monobloc, aluminium bistro chair, or deck chair, as the bas</p>
+                <span class="item-author">by Rain Noe</span>
+            </div>
+        </article>
+        </div>
+
+        <footer>
+            <p>Last updated: 2026-02-14 05:05 UTC</p>
+            <p style="margin-top: 4px">157 items from 9 sources</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const buttons = document.querySelectorAll(".filter-btn");
+            const items = document.querySelectorAll(".item");
+            let activeSource = null;
+            let activeCategory = null;
+
+            function applyFilters() {
+                items.forEach(item => {
+                    const matchSource = !activeSource || item.dataset.source === activeSource;
+                    const matchCategory = !activeCategory || item.dataset.category === activeCategory;
+                    item.classList.toggle("hidden", !(matchSource && matchCategory));
+                });
+            }
+
+            buttons.forEach(btn => {
+                btn.addEventListener("click", function() {
+                    if (this.dataset.filterAll !== undefined) {
+                        activeSource = null;
+                        activeCategory = null;
+                        buttons.forEach(b => b.classList.remove("active"));
+                        this.classList.add("active");
+                    } else if (this.dataset.filterSource) {
+                        const src = this.dataset.filterSource;
+                        if (activeSource === src) {
+                            activeSource = null;
+                            this.classList.remove("active");
+                        } else {
+                            buttons.forEach(b => { if (b.dataset.filterSource) b.classList.remove("active"); });
+                            activeSource = src;
+                            this.classList.add("active");
+                        }
+                        document.querySelector("[data-filter-all]").classList.toggle("active", !activeSource && !activeCategory);
+                    } else if (this.dataset.filterCategory) {
+                        const cat = this.dataset.filterCategory;
+                        if (activeCategory === cat) {
+                            activeCategory = null;
+                            this.classList.remove("active");
+                        } else {
+                            buttons.forEach(b => { if (b.dataset.filterCategory) b.classList.remove("active"); });
+                            activeCategory = cat;
+                            this.classList.add("active");
+                        }
+                        document.querySelector("[data-filter-all]").classList.toggle("active", !activeSource && !activeCategory);
+                    }
+                    applyFilters();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
