@@ -81,6 +81,61 @@
       "name": "Ganoksin",
       "url": "https://www.ganoksin.com/feed/",
       "category": "Craft"
+    },
+    {
+      "name": "Gothamist",
+      "url": "https://gothamist.com/feed",
+      "category": "Culture"
+    },
+    {
+      "name": "Artnet News",
+      "url": "https://news.artnet.com/feed",
+      "category": "Art"
+    },
+    {
+      "name": "ARTnews",
+      "url": "https://www.artnews.com/feed/",
+      "category": "Art"
+    },
+    {
+      "name": "Artforum",
+      "url": "https://www.artforum.com/feed/",
+      "category": "Art"
+    },
+    {
+      "name": "6sqft",
+      "url": "https://www.6sqft.com/feed/",
+      "category": "Design"
+    },
+    {
+      "name": "Brownstoner",
+      "url": "https://www.brownstoner.com/feed/",
+      "category": "Design"
+    },
+    {
+      "name": "Surface",
+      "url": "https://www.surfacemag.com/feed/",
+      "category": "Design"
+    },
+    {
+      "name": "CARLA",
+      "url": "https://contemporaryartreview.la/feed/",
+      "category": "Art"
+    },
+    {
+      "name": "East of Borneo",
+      "url": "https://eastofborneo.org/feed/",
+      "category": "Art"
+    },
+    {
+      "name": "Artillery Magazine",
+      "url": "https://artillerymag.com/feed/",
+      "category": "Art"
+    },
+    {
+      "name": "AnOther Magazine",
+      "url": "https://www.anothermag.com/feed",
+      "category": "Culture"
     }
   ]
 }
