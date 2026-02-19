@@ -42,10 +42,45 @@
       "url": "https://artistreplete.com/blogs/blog.atom",
       "category": "Art"
     },
-{
+    {
       "name": "Artisanal Metals",
       "url": "https://artisanalmetals.com/feed/",
       "category": "Art"
+    },
+    {
+      "name": "Colossal",
+      "url": "https://www.thisiscolossal.com/feed/",
+      "category": "Art"
+    },
+    {
+      "name": "Hyperallergic",
+      "url": "https://hyperallergic.com/feed/",
+      "category": "Art"
+    },
+    {
+      "name": "Chicago Reader",
+      "url": "https://chicagoreader.com/feed/",
+      "category": "Culture"
+    },
+    {
+      "name": "Juxtapoz",
+      "url": "https://www.juxtapoz.com/feed/",
+      "category": "Art"
+    },
+    {
+      "name": "The Architect's Newspaper",
+      "url": "https://archpaper.com/feed/",
+      "category": "Design"
+    },
+    {
+      "name": "Sight Unseen",
+      "url": "https://www.sightunseen.com/feed/",
+      "category": "Design"
+    },
+    {
+      "name": "Ganoksin",
+      "url": "https://www.ganoksin.com/feed/",
+      "category": "Craft"
     }
   ]
 }
