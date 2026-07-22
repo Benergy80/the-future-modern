@@ -141,6 +141,11 @@
       "name": "Office Magazine",
       "url": "https://officemagazine.net/rss.xml",
       "category": "Culture"
+    },
+    {
+      "name": "Teeth Magazine",
+      "url": "https://www.teethmag.net/feed/",
+      "category": "Culture"
     }
   ]
 }
