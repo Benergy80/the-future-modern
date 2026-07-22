@@ -136,6 +136,11 @@
       "name": "AnOther Magazine",
       "url": "https://www.anothermag.com/feed",
       "category": "Culture"
+    },
+    {
+      "name": "Office Magazine",
+      "url": "https://officemagazine.net/rss.xml",
+      "category": "Culture"
     }
   ]
 }
